@@ -3,8 +3,6 @@
 * @Company: EB Pearls
 */
 
-import 'dart:developer';
-
 import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captcha_cubit.dart';
 import 'package:flutter_gcaptcha_v3/recaptcha_keys.dart';
 import 'package:injectable/injectable.dart';
@@ -33,8 +31,7 @@ class RecaptchaHandler {
   }
 
   static execute({required WebViewPlusController controller}) {
-    log("Excute==>> ${_instance?.siteKey}");
-    controller.webViewController.runJavascript(
-        'loadRecaptchaScript("${_instance?.siteKey}")');
+    controller.webViewController
+        .runJavascript('readyCaptcha("${_instance?.siteKey}")');
   }
 }
