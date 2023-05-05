@@ -50,7 +50,8 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
    assets:
-     - assets/webpages/
+      - assets/webpages/
+      - assets/recaptcha/
 
   #   - images/a_dot_ham.jpeg
   #
