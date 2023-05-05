@@ -4,6 +4,6 @@ part 'recaptcha_keys.freezed.dart';
 
 @freezed
 class RecaptchaKeys with _$RecaptchaKeys {
-  factory RecaptchaKeys.ready(
+  factory RecaptchaKeys(
       {required String siteKey, required String secrete}) = _RecaptchaKeys;
 }

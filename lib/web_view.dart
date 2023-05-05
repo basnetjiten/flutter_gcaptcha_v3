@@ -38,8 +38,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SizedBox(
+    return SizedBox(
         height: widget.height,
         width: widget.width,
         child: WebViewPlus(
@@ -73,7 +72,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
             ),
           },
         ),
-      ),
+
     );
   }
 }

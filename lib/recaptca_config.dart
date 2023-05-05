@@ -11,12 +11,17 @@ import 'core/di/injector.dart';
 
 @injectable
 @singleton
-class RecaptchaHandler{
+class RecaptchaHandler {
   final RecaptchaKeys keys;
 
   RecaptchaHandler({required this.keys});
 
-  save() {
+  /// Configure DI
+  save() async {
+    await configureInjection().then((value) => _save);
+  }
+
+  _save() {
     getIt.registerSingleton(RecaptchaHandler(keys: keys));
   }
 

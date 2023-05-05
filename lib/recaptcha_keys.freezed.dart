@@ -18,38 +18,6 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$RecaptchaKeys {
   String get siteKey => throw _privateConstructorUsedError;
   String get secrete => throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String siteKey, String secrete) ready,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String siteKey, String secrete)? ready,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String siteKey, String secrete)? ready,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RecaptchaKeys value) ready,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RecaptchaKeys value)? ready,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RecaptchaKeys value)? ready,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $RecaptchaKeysCopyWith<RecaptchaKeys> get copyWith =>
@@ -144,7 +112,7 @@ class _$_RecaptchaKeys implements _RecaptchaKeys {
 
   @override
   String toString() {
-    return 'RecaptchaKeys.ready(siteKey: $siteKey, secrete: $secrete)';
+    return 'RecaptchaKeys(siteKey: $siteKey, secrete: $secrete)';
   }
 
   @override
@@ -164,62 +132,6 @@ class _$_RecaptchaKeys implements _RecaptchaKeys {
   @pragma('vm:prefer-inline')
   _$$_RecaptchaKeysCopyWith<_$_RecaptchaKeys> get copyWith =>
       __$$_RecaptchaKeysCopyWithImpl<_$_RecaptchaKeys>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(String siteKey, String secrete) ready,
-  }) {
-    return ready(siteKey, secrete);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String siteKey, String secrete)? ready,
-  }) {
-    return ready?.call(siteKey, secrete);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String siteKey, String secrete)? ready,
-    required TResult orElse(),
-  }) {
-    if (ready != null) {
-      return ready(siteKey, secrete);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_RecaptchaKeys value) ready,
-  }) {
-    return ready(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_RecaptchaKeys value)? ready,
-  }) {
-    return ready?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_RecaptchaKeys value)? ready,
-    required TResult orElse(),
-  }) {
-    if (ready != null) {
-      return ready(this);
-    }
-    return orElse();
-  }
 }
 
 abstract class _RecaptchaKeys implements RecaptchaKeys {
