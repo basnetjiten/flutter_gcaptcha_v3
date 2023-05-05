@@ -2,9 +2,7 @@
 <html>
 <head>
     <title>reCAPTCHA</title>
-<!--    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
-<!--    <script src="https://www.google.com/recaptcha/api.js?render={siteKey}"-->
-<!--            async defer></script>-->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script id="recaptcha-script"></script>
 
 </head>
@@ -30,6 +28,7 @@
            });
         }
       }
+
 </script>
 
 <script>
@@ -44,12 +43,13 @@
 
         // Insert the script element into the HTML document's head
         var head = document.getElementsByTagName('head')[0];
-
+        Ready.postMessage(dataSiteKey);
         head.appendChild(script);
 
-        captchaCallback(dataSiteKey);
+        executeCaptcha(dataSiteKey);
       }
-    </script>
+
+</script>
 
 </body>
 </html>

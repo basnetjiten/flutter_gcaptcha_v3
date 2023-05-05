@@ -50,14 +50,16 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
             (value) {
               log("DATA SITE KEY${RecaptchaHandler.instance.siteKey}");
               controller.webViewController.runJavascript(
-                  'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
+                  'readyCaptcha(${RecaptchaHandler.instance.siteKey})');
             },
           );
         },
         javascriptChannels: {
           JavascriptChannel(
             name: 'Ready',
-            onMessageReceived: (JavascriptMessage message) {},
+            onMessageReceived: (JavascriptMessage message) {
+              log("READY SITE KEY${message.message}");
+            },
           ),
           JavascriptChannel(
             name: 'Execute',
