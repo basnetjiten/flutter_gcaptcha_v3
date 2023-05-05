@@ -38,36 +38,40 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
 
   @override
   Widget build(BuildContext context) {
-    return WebViewPlus(
-      javascriptMode: JavascriptMode.unrestricted,
-      onWebViewCreated: (controller) {
-        _controller = controller;
+    return SizedBox(
+      height: widget.height,
+      width: widget.width,
+      child: WebViewPlus(
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (controller) {
+          _controller = controller;
 
-        _controller.loadUrl('assets/webpages/index.html');
-        widget.onControllerReady(_controller);
+          _controller.loadUrl('assets/webpages/index.html');
+          widget.onControllerReady(_controller);
 
-        Future.delayed(const Duration(seconds: 1)).then(
-          (value) {
-            _controller.webViewController.runJavascript(
-                'loadRecaptchaScript(${_recaptchaConfig.keys.siteKey})');
-          },
-        );
-      },
-      javascriptChannels: {
-        JavascriptChannel(
-          name: 'Ready',
-          onMessageReceived: (JavascriptMessage message) {},
-        ),
-        JavascriptChannel(
-          name: 'Execute',
-          onMessageReceived: (JavascriptMessage message) {
-            _verifyCaptchaCubit.verifyCaptchaToken(
-              token: message.message,
-              secret: _recaptchaConfig.keys.secrete,
-            );
-          },
-        ),
-      },
+          Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              _controller.webViewController.runJavascript(
+                  'loadRecaptchaScript(${_recaptchaConfig.keys.siteKey})');
+            },
+          );
+        },
+        javascriptChannels: {
+          JavascriptChannel(
+            name: 'Ready',
+            onMessageReceived: (JavascriptMessage message) {},
+          ),
+          JavascriptChannel(
+            name: 'Execute',
+            onMessageReceived: (JavascriptMessage message) {
+              _verifyCaptchaCubit.verifyCaptchaToken(
+                token: message.message,
+                secret: _recaptchaConfig.keys.secrete,
+              );
+            },
+          ),
+        },
+      ),
     );
   }
 }
