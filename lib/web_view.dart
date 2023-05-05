@@ -43,26 +43,25 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
+
+
           controller.loadUrl('assets/webpages/index.html');
           widget.onControllerReady(controller);
 
           Future.delayed(const Duration(seconds: 1)).then(
-            (value) {
-              log("DATA SITE KEY${RecaptchaHandler.instance.siteKey}");
-              controller.webViewController.runJavascript(
-                  'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
+                (value) {
+                  controller.webViewController.runJavascript(
+                  'loadRecaptchaScript("${RecaptchaHandler.instance.siteKey}")');
             },
           );
         },
-        javascriptChannels:  Set.from([
+        javascriptChannels: {
           JavascriptChannel(
             name: 'Ready',
-            onMessageReceived: (JavascriptMessage message) {
-              log("READY SITE KEY${message.message}");
-            },
+            onMessageReceived: (JavascriptMessage message) {},
           ),
           JavascriptChannel(
-            name: 'Execute',
+            name: 'Captcha',
             onMessageReceived: (JavascriptMessage message) {
               // if (RecaptchaHandler.instance.hasSecreteKey) {
               //   _verifyCaptchaCubit.verifyCaptchaToken(
@@ -70,10 +69,11 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               //     secret: RecaptchaHandler.instance.secreteKey!,
               //   );
               // } else {
-              widget.onTokenReceived(message.message);
+                widget.onTokenReceived(message.message);
               //}
             },
-          ),]),
+          ),
+        },
       ),
     );
   }
