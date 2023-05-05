@@ -7,27 +7,31 @@ import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captc
 import 'package:flutter_gcaptcha_v3/recaptcha_keys.dart';
 import 'package:injectable/injectable.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
-import 'core/di/injector.dart';
 
-@injectable
-@singleton
 class RecaptchaHandler {
-  final RecaptchaKeys keys;
+  RecaptchaHandler._();
 
-  RecaptchaHandler({required this.keys});
+  static RecaptchaHandler? _instance;
 
-  /// Configure DI
-  save() async {
-    await configureInjection().then((value) => _save);
+  late String siteKey;
+  String? secreteKey;
+
+
+  bool get hasSecreteKey => secreteKey!=null;
+
+  /// Returns an instance using the default [Env].
+  static RecaptchaHandler get instance {
+    _instance ??= RecaptchaHandler._();
+    return _instance!;
   }
 
-  _save() {
-    getIt.registerSingleton(RecaptchaHandler(keys: keys));
+  setupSiteKey({required String dataSiteKey, String? secreteKey}) {
+    _instance?.siteKey = dataSiteKey;
+    _instance?.secreteKey = secreteKey;
   }
 
   static execute({required WebViewPlusController controller}) {
-    final recaptchaV3 = getIt<RecaptchaHandler>();
     controller.webViewController
-        .runJavascript('loadRecaptchaScript(${recaptchaV3.keys.siteKey})');
+        .runJavascript('loadRecaptchaScript(${_instance?.siteKey})');
   }
 }

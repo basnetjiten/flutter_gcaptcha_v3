@@ -8,17 +8,19 @@ part 'verify_captcha_state.dart';
 
 part 'verify_captcha_cubit.freezed.dart';
 
-@injectable
 class VerifyCaptchaCubit extends Cubit<VerifyCaptchaState> {
-  VerifyCaptchaCubit(this._authRepository)
-      : super(const VerifyCaptchaState.ideal());
+  VerifyCaptchaCubit()
+      : _authRepository = AuthRepositoryImpl(),
+        super(const VerifyCaptchaState.ideal());
 
-  final AuthRepositoryImpl _authRepository;
+  late final AuthRepositoryImpl _authRepository;
 
-  void verifyCaptchaToken({required String token, required String secret}) async {
-
+  void verifyCaptchaToken(
+      {required String token, required String secret}) async {
     emit(const VerifyCaptchaState.verifying());
-    final result = await _authRepository.verifyCaptcha(secret: secret, token: token);
-    emit(result.fold((error) => VerifyCaptchaState.failed(message: error), (data) => VerifyCaptchaState.success(verifiedCaptcha: data)));
+    final result =
+        await _authRepository.verifyCaptcha(secret: secret, token: token);
+    emit(result.fold((error) => VerifyCaptchaState.failed(message: error),
+        (data) => VerifyCaptchaState.success(verifiedCaptcha: data)));
   }
 }

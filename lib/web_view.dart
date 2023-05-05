@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captcha_cubit.dart';
-import 'package:flutter_gcaptcha_v3/core/di/injector.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
@@ -13,10 +12,12 @@ class ReCaptchaWebView extends StatefulWidget {
       {Key? key,
       required this.width,
       required this.height,
-      required this.onControllerReady})
+      required this.onControllerReady,
+      required this.onTokenReceived})
       : super(key: key);
   final double width, height;
   final Function(WebViewPlusController controller) onControllerReady;
+  final Function(String token) onTokenReceived;
 
   @override
   State<ReCaptchaWebView> createState() => _ReCaptchaWebViewState();
@@ -26,53 +27,54 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
   late final WebViewPlusController _controller;
 
   late final VerifyCaptchaCubit _verifyCaptchaCubit;
-  late final RecaptchaHandler _recaptchaConfig;
 
   @override
   void initState() {
     super.initState();
 
-    _verifyCaptchaCubit = getIt<VerifyCaptchaCubit>();
-    _recaptchaConfig = getIt<RecaptchaHandler>();
+    _verifyCaptchaCubit = VerifyCaptchaCubit();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: widget.height,
-        width: widget.width,
-        child: WebViewPlus(
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (controller) {
-            _controller = controller;
+      height: widget.height,
+      width: widget.width,
+      child: WebViewPlus(
+        javascriptMode: JavascriptMode.unrestricted,
+        onWebViewCreated: (controller) {
+          _controller = controller;
 
-            _controller.loadUrl('assets/webpages/index.html');
-            widget.onControllerReady(_controller);
+          _controller.loadUrl('assets/webpages/index.html');
+          widget.onControllerReady(_controller);
 
-            Future.delayed(const Duration(seconds: 1)).then(
-              (value) {
-                _controller.webViewController.runJavascript(
-                    'loadRecaptchaScript(${_recaptchaConfig.keys.siteKey})');
-              },
-            );
-          },
-          javascriptChannels: {
-            JavascriptChannel(
-              name: 'Ready',
-              onMessageReceived: (JavascriptMessage message) {},
-            ),
-            JavascriptChannel(
-              name: 'Execute',
-              onMessageReceived: (JavascriptMessage message) {
+          Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              _controller.webViewController.runJavascript(
+                  'loadRecaptchaScript(${RecaptchaHandler.instance.siteKey})');
+            },
+          );
+        },
+        javascriptChannels: {
+          JavascriptChannel(
+            name: 'Ready',
+            onMessageReceived: (JavascriptMessage message) {},
+          ),
+          JavascriptChannel(
+            name: 'Execute',
+            onMessageReceived: (JavascriptMessage message) {
+              if (RecaptchaHandler.instance.hasSecreteKey) {
                 _verifyCaptchaCubit.verifyCaptchaToken(
                   token: message.message,
-                  secret: _recaptchaConfig.keys.secrete,
+                  secret: RecaptchaHandler.instance.secreteKey!,
                 );
-              },
-            ),
-          },
-        ),
-
+              } else {
+                widget.onTokenReceived(message.message);
+              }
+            },
+          ),
+        },
+      ),
     );
   }
 }
