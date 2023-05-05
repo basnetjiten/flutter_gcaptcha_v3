@@ -31,25 +31,25 @@ class RecaptchaHandler {
     _instance?.useGCaptchaV3 = useGCaptchaV3;
   }
 
-  static configureCaptchaVersion(WebViewPlusController controller) {
-    if (_instance!.useGCaptchaV3) {
-      controller.loadUrl('assets/three_webpage/index.html');
-      Future.delayed(const Duration(seconds: 1)).then(
-        (value) {
-          controller.webViewController.runJavascript(
-              'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
-        },
-      );
-    } else {
-      controller.loadUrl('assets/two_webpage/index.html');
-      Future.delayed(const Duration(seconds: 1)).then(
-        (value) {
-          controller.webViewController.runJavascript(
-              'updateV2DataSiteKey("${RecaptchaHandler.instance.siteKey}")');
-        },
-      );
-    }
-  }
+  // static configureCaptchaVersion(WebViewPlusController controller) {
+  //   if (_instance!.useGCaptchaV3) {
+  //     controller.loadUrl('assets/three_webpage/index.html');
+  //     Future.delayed(const Duration(seconds: 1)).then(
+  //       (value) {
+  //         controller.webViewController.runJavascript(
+  //             'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
+  //       },
+  //     );
+  //   } else {
+  //     controller.loadUrl('assets/two_webpage/index.html');
+  //     Future.delayed(const Duration(seconds: 1)).then(
+  //       (value) {
+  //         controller.webViewController.runJavascript(
+  //             'updateV2DataSiteKey("${RecaptchaHandler.instance.siteKey}")');
+  //       },
+  //     );
+  //   }
+  // }
 
   static executeV3({required WebViewPlusController controller}) {
     controller.webViewController
