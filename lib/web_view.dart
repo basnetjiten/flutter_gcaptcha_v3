@@ -45,7 +45,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
         onWebViewCreated: (controller) {
 
 
-          controller.loadUrl('assets/webpages/index.html');
+          controller.loadUrl('assets/webpages/g_v3_index.html');
           widget.onControllerReady(controller);
 
           Future.delayed(const Duration(seconds: 1)).then(

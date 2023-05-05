@@ -21,7 +21,7 @@
 
 <!--Recatpcha V3-->
 <script>
-      function captchaCallback(siteKey){
+      function executeCaptcha(siteKey){
         if(typeof Captcha!=="undefined"){
             grecaptcha.ready(function() {
             grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
@@ -47,7 +47,7 @@
 
         head.appendChild(script);
 
-        captchaCallback(dataSiteKey);
+        executeCaptcha(dataSiteKey);
       }
     </script>
 
