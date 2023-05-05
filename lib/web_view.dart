@@ -43,13 +43,13 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
-            controller.loadUrl('assets/recaptcha/index.html');
-            Future.delayed(const Duration(seconds: 1)).then(
-                  (value) {
-                controller.webViewController.runJavascript(
-                    'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
-              },
-            );
+            // controller.loadUrl('assets/recaptcha/index.html');
+            // Future.delayed(const Duration(seconds: 1)).then(
+            //       (value) {
+            //     controller.webViewController.runJavascript(
+            //         'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
+            //   },
+            // );
           if (_useGCaptchaV3) {
             controller.loadUrl('assets/recaptcha/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
