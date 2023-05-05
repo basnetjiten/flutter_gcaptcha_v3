@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captcha_cubit.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
@@ -46,6 +48,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
             controller.loadUrl('assets/recaptcha/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
                   (value) {
+                    log("SITE KEY==.${RecaptchaHandler.instance.siteKey}");
                 controller.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
               },
@@ -75,7 +78,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
                   onMessageReceived: (JavascriptMessage message) {},
                 ),
                 JavascriptChannel(
-                  name: 'ReCaptcha',
+                  name: 'Captcha',
                   onMessageReceived: (JavascriptMessage message) {
                     widget.onTokenReceived(message.message);
                   },

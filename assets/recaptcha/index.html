@@ -22,10 +22,10 @@
 <!--Recatpcha V3-->
 <script>
       function executeCaptcha(siteKey){
-        if(typeof ReCaptcha!=="undefined"){
+        if(typeof Captcha!=="undefined"){
             grecaptcha.ready(function() {
             grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
-            ReCaptcha.postMessage(token);
+            Captcha.postMessage(token);
             });
            });
         }
