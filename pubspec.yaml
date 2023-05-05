@@ -51,6 +51,7 @@ flutter:
   # To add assets to your package, add an assets section, like this:
    assets:
      - assets/recaptcha/
+     - assets/webpages/
 
   #   - images/a_dot_ham.jpeg
   #
