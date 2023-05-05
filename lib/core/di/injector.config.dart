@@ -35,8 +35,8 @@ _i1.GetIt $initGetIt(
   );
   final registerModules = _$RegisterModules();
   gh.lazySingleton<_i3.Dio>(() => registerModules.dio());
-  gh.factory<_i4.RecaptchaConfig>(
-      () => _i4.RecaptchaConfig(keys: gh<_i5.RecaptchaKeys>()));
+  gh.factory<_i4.RecaptchaHandler>(
+      () => _i4.RecaptchaHandler(keys: gh<_i5.RecaptchaKeys>()));
   gh.singleton<_i6.AuthRepositoryImpl>(_i6.AuthRepositoryImpl(gh<_i3.Dio>()));
   gh.factory<_i7.VerifyCaptchaCubit>(
       () => _i7.VerifyCaptchaCubit(gh<_i6.AuthRepositoryImpl>()));

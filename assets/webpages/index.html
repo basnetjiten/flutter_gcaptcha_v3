@@ -25,7 +25,7 @@
         if(typeof Captcha!=="undefined"){
             grecaptcha.ready(function() {
             grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
-            Captcha.postMessage(token);
+            Execute.postMessage(token);
             });
            });
         }
