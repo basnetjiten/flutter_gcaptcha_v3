@@ -43,7 +43,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
-            // controller.loadUrl('assets/recaptcha/index.html');
+            // controller.loadUrl('assets/recaptcha/index2.html');
             // Future.delayed(const Duration(seconds: 1)).then(
             //       (value) {
             //     controller.webViewController.runJavascript(
@@ -59,11 +59,11 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               },
             );
           } else {
-          controller.loadUrl('assets/webpages/index.html');
+          controller.loadUrl('assets/webpages/index2.html');
           Future.delayed(const Duration(seconds: 1)).then(
             (value) {
               controller.webViewController.runJavascript(
-                  'updateV2DataSiteKey("${RecaptchaHandler.instance.siteKey}")');
+                  'updateDataSiteKey("${RecaptchaHandler.instance.siteKey}")');
             },
           );
              }
