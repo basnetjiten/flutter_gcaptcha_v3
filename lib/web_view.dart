@@ -70,7 +70,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
                   onMessageReceived: (JavascriptMessage message) {},
                 ),
                 JavascriptChannel(
-                  name: 'V3Captcha',
+                  name: 'ReCaptcha',
                   onMessageReceived: (JavascriptMessage message) {
                     widget.onTokenReceived(message.message);
                   },
@@ -78,7 +78,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               }
             : {
                 JavascriptChannel(
-                  name: 'V2Captcha',
+                  name: 'Captcha',
                   onMessageReceived: (JavascriptMessage message) {
                     widget.onTokenReceived(message.message);
                   },
