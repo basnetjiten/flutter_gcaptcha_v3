@@ -50,11 +50,11 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
             (value) {
               log("DATA SITE KEY${RecaptchaHandler.instance.siteKey}");
               controller.webViewController.runJavascript(
-                  'readyCaptcha(${RecaptchaHandler.instance.siteKey})');
+                  'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
             },
           );
         },
-        javascriptChannels: {
+        javascriptChannels:  Set.from([
           JavascriptChannel(
             name: 'Ready',
             onMessageReceived: (JavascriptMessage message) {
@@ -73,8 +73,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               widget.onTokenReceived(message.message);
               //}
             },
-          ),
-        },
+          ),]),
       ),
     );
   }
