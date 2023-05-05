@@ -50,8 +50,8 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
    assets:
-     - assets/webpages/v2_index.html
-     - assets/webpages/v3_index.html
+     - assets/g2_webpages/index.html
+     - assets/g3_webpages/index.html
   #   - images/a_dot_ham.jpeg
   #
   # For details regarding assets in packages, see
