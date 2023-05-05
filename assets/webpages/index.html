@@ -1,38 +1,38 @@
-<!--<!DOCTYPE html>-->
-<!--<html>-->
-<!--<head>-->
-<!--    <title>reCAPTCHA</title>-->
-<!--    <script src="https://www.google.com/recaptcha/api.js" async defer></script>-->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 
-<!--</head>-->
-<!--<body>-->
-<!--&lt;!&ndash;Recatpcha V2&ndash;&gt;-->
+</head>
+<body>
+<!--Recatpcha V2-->
 
-<!--<form action="?" method="POST">-->
-<!--    <div class="g-recaptcha"-->
-<!--         data-callback="captchaCallback"-->
-<!--         style="transform:scale(0.8);transform-origin:0;-webkit-transform:scale(0.8);-->
-<!--          transform:scale(0.8);-webkit-transform-origin:0 0;transform-origin:0 0;"></div>-->
-<!--</form>-->
+<form action="?" method="POST">
+    <div class="g-recaptcha"
+         data-callback="captchaCallback"
+         style="transform:scale(0.8);transform-origin:0;-webkit-transform:scale(0.8);
+          transform:scale(0.8);-webkit-transform-origin:0 0;transform-origin:0 0;"></div>
+</form>
 
-<!--<script>-->
-<!--   function captchaCallback(response){-->
-<!--        if(typeof Captcha!=="undefined"){-->
-<!--          Captcha.postMessage(response);-->
-<!--        }-->
-<!--      }-->
-<!--</script>-->
+<script>
+   function captchaCallback(response){
+        if(typeof Captcha!=="undefined"){
+          Captcha.postMessage(response);
+        }
+      }
+</script>
 
 
-<!--<script>-->
+<script>
 
-<!--function updateV2DataSiteKey(siteKey){-->
-<!--      var recaptchaDiv = document.querySelector('.g-recaptcha');-->
-<!--      recaptchaDiv.setAttribute('data-sitekey', `${siteKey}`);-->
-<!--   }-->
-<!--</script>-->
+function updateV2DataSiteKey(siteKey){
+      var recaptchaDiv = document.querySelector('.g-recaptcha');
+      recaptchaDiv.setAttribute('data-sitekey', `${siteKey}`);
+   }
+</script>
 
-<!--</body>-->
-<!--</html>-->
-<!--<html>-->
+</body>
+</html>
+<html>

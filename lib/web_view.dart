@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captcha_cubit.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
@@ -28,13 +26,13 @@ class ReCaptchaWebView extends StatefulWidget {
 class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
   late final VerifyCaptchaCubit _verifyCaptchaCubit;
 
- // late bool _useGCaptchaV3;
+  late bool _useGCaptchaV3;
 
   @override
   void initState() {
     super.initState();
     _verifyCaptchaCubit = VerifyCaptchaCubit();
-   // _useGCaptchaV3 = RecaptchaHandler.instance.useGCaptchaV3;
+    _useGCaptchaV3 = RecaptchaHandler.instance.useGCaptchaV3;
   }
 
   @override
@@ -48,31 +46,31 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
             controller.loadUrl('assets/recaptcha/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
                   (value) {
-                    log("SITE KEY==.${RecaptchaHandler.instance.siteKey}");
                 controller.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
               },
             );
-          // if (_useGCaptchaV3) {
-          //   controller.loadUrl('assets/recaptcha/index.html');
-          //   Future.delayed(const Duration(seconds: 1)).then(
-          //         (value) {
-          //       controller.webViewController.runJavascript(
-          //           'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
-          //     },
-          //   );
-          // } else {
-          // controller.loadUrl('assets/recaptcha/index.html');
-          // Future.delayed(const Duration(seconds: 1)).then(
-          //   (value) {
-          //     controller.webViewController.runJavascript(
-          //         'updateV2DataSiteKey("${RecaptchaHandler.instance.siteKey}")');
-          //   },
-          // );
-          //    }
+          if (_useGCaptchaV3) {
+            controller.loadUrl('assets/recaptcha/index.html');
+            Future.delayed(const Duration(seconds: 1)).then(
+                  (value) {
+                controller.webViewController.runJavascript(
+                    'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
+              },
+            );
+          } else {
+          controller.loadUrl('assets/webpages/index.html');
+          Future.delayed(const Duration(seconds: 1)).then(
+            (value) {
+              controller.webViewController.runJavascript(
+                  'updateV2DataSiteKey("${RecaptchaHandler.instance.siteKey}")');
+            },
+          );
+             }
           widget.onControllerReady(controller);
         },
-        javascriptChannels: {
+        javascriptChannels: _useGCaptchaV3
+            ? {
                 JavascriptChannel(
                   name: 'Ready',
                   onMessageReceived: (JavascriptMessage message) {},
@@ -84,6 +82,14 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
                   },
                 ),
               }
+            : {
+                JavascriptChannel(
+                  name: 'Captcha',
+                  onMessageReceived: (JavascriptMessage message) {
+                    widget.onTokenReceived(message.message);
+                  },
+                ),
+              },
       ),
     );
   }

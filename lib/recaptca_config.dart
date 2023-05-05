@@ -3,8 +3,6 @@
 * @Company: EB Pearls
 */
 
-import 'dart:developer';
-
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
 class RecaptchaHandler {
@@ -54,7 +52,6 @@ class RecaptchaHandler {
   // }
 
   static executeV3({required WebViewPlusController controller}) {
-    log("SITE KEY==>>>${_instance?.siteKey}");
     controller.webViewController
         .runJavascript('readyCaptcha("${_instance?.siteKey}")');
   }
