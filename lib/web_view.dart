@@ -9,10 +9,15 @@ import 'package:webview_flutter_plus/webview_flutter_plus.dart';
  * @Company: EB Pearls
  */
 class ReCaptchaWebView extends StatefulWidget {
-  const ReCaptchaWebView({Key? key, required this.width, required this.height, required this.webViewPlusController})
+  const ReCaptchaWebView(
+      {Key? key,
+      required this.width,
+      required this.height,
+      required this.onControllerReady})
       : super(key: key);
   final double width, height;
-  final WebViewPlusController webViewPlusController;
+  final Function(WebViewPlusController controller) onControllerReady;
+
   @override
   State<ReCaptchaWebView> createState() => _ReCaptchaWebViewState();
 }
@@ -26,7 +31,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
   @override
   void initState() {
     super.initState();
-    _controller= widget.webViewPlusController;
+
     _verifyCaptchaCubit = getIt<VerifyCaptchaCubit>();
     _recaptchaConfig = getIt<RecaptchaHandler>();
   }
@@ -39,6 +44,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
         _controller = controller;
 
         _controller.loadUrl('assets/webpages/index.html');
+        widget.onControllerReady(_controller);
 
         Future.delayed(const Duration(seconds: 1)).then(
           (value) {
