@@ -26,13 +26,13 @@ class ReCaptchaWebView extends StatefulWidget {
 class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
   late final VerifyCaptchaCubit _verifyCaptchaCubit;
 
-  late bool _useGCaptchaV3;
+ // late bool _useGCaptchaV3;
 
   @override
   void initState() {
     super.initState();
     _verifyCaptchaCubit = VerifyCaptchaCubit();
-    _useGCaptchaV3 = RecaptchaHandler.instance.useGCaptchaV3;
+   // _useGCaptchaV3 = RecaptchaHandler.instance.useGCaptchaV3;
   }
 
   @override
@@ -69,8 +69,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
           //    }
           widget.onControllerReady(controller);
         },
-        javascriptChannels: _useGCaptchaV3
-            ? {
+        javascriptChannels: {
                 JavascriptChannel(
                   name: 'Ready',
                   onMessageReceived: (JavascriptMessage message) {},
@@ -82,14 +81,6 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
                   },
                 ),
               }
-            : {
-                JavascriptChannel(
-                  name: 'Captcha',
-                  onMessageReceived: (JavascriptMessage message) {
-                    widget.onTokenReceived(message.message);
-                  },
-                ),
-              },
       ),
     );
   }
