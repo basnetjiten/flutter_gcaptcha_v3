@@ -32,6 +32,6 @@ class RecaptchaHandler {
 
   static execute({required WebViewPlusController controller}) {
     controller.webViewController
-        .runJavascript('loadRecaptchaScript(${_instance?.siteKey})');
+        .runJavascript('executeCaptcha("${_instance?.siteKey}")');
   }
 }

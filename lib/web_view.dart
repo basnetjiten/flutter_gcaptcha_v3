@@ -47,7 +47,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
           Future.delayed(const Duration(seconds: 1)).then(
             (value) {
               controller.webViewController.runJavascript(
-                  'loadRecaptchaScript(${RecaptchaHandler.instance.siteKey})');
+                  'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
             },
           );
         },

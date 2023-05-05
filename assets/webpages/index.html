@@ -21,7 +21,7 @@
 
 <!--Recatpcha V3-->
 <script>
-      function captchaCallback(siteKey){
+      function executeCaptcha(siteKey){
         if(typeof Execute!=="undefined"){
             grecaptcha.ready(function() {
             grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
@@ -33,7 +33,7 @@
 </script>
 
 <script>
-      function loadRecaptchaScript(dataSiteKey) {
+      function readyCaptcha(dataSiteKey) {
 
         // Create a new script element
         var script = document.createElement('script');
