@@ -53,7 +53,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               },
             );
           } else {
-            controller.loadUrl('assets/gcaptcha/index.html');
+            controller.loadUrl('assets/webpages/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
                   (value) {
                 controller.webViewController.runJavascript(
