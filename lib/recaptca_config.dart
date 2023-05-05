@@ -33,7 +33,7 @@ class RecaptchaHandler {
 
   static configureCaptchaVersion(WebViewPlusController controller) {
     if (_instance!.useGCaptchaV3) {
-      controller.loadUrl('assets/g3_webpages/index.html');
+      controller.loadUrl('assets/three_webpage/index.html');
       Future.delayed(const Duration(seconds: 1)).then(
         (value) {
           controller.webViewController.runJavascript(
@@ -41,7 +41,7 @@ class RecaptchaHandler {
         },
       );
     } else {
-      controller.loadUrl('assets/g2_webpages/index.html');
+      controller.loadUrl('assets/two_webpage/index.html');
       Future.delayed(const Duration(seconds: 1)).then(
         (value) {
           controller.webViewController.runJavascript(
