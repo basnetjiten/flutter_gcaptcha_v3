@@ -3,53 +3,35 @@
 <head>
     <title>reCAPTCHA</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <!--    <script src="https://www.google.com/recaptcha/api.js?render={siteKey}"-->
-    <!--            async defer></script>-->
-    <script id="recaptcha-script"></script>
+
 
 </head>
 <body>
 <!--Recatpcha V2-->
 
-<!--<form action="?" method="POST">-->
-<!--    <div class="g-recaptcha"-->
-<!--         data-sitekey="6Lf0LN8lAAAAAOk7CH_Qbpqc3scgnSeGNOyZglJQ"-->
-<!--         data-callback="captchaCallback"-->
-<!--         style="transform:scale(0.8);transform-origin:0;-webkit-transform:scale(0.8);-->
-<!--transform:scale(0.8);-webkit-transform-origin:0 0;transform-origin:0 0;"></div>-->
-<!--</form>-->
+<form action="?" method="POST">
+    <div class="g-recaptcha"
+         data-callback="captchaCallback"
+         style="transform:scale(0.8);transform-origin:0;-webkit-transform:scale(0.8);
+          transform:scale(0.8);-webkit-transform-origin:0 0;transform-origin:0 0;"></div>
+</form>
 
-<!--Recatpcha V3-->
 <script>
-      function executeCaptcha(siteKey){
+   function captchaCallback(response){
         if(typeof Captcha!=="undefined"){
-            grecaptcha.ready(function() {
-            grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
-            Captcha.postMessage(token);
-            });
-           });
+          Captcha.postMessage(response);
         }
       }
 </script>
 
+
 <script>
-      function readyCaptcha(dataSiteKey) {
 
-        // Create a new script element
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-
-        // Set the script's source URL to the reCAPTCHA script
-        script.src = `https://www.google.com/recaptcha/api.js?render=${dataSiteKey}`;
-
-        // Insert the script element into the HTML document's head
-        var head = document.getElementsByTagName('head')[0];
-
-        head.appendChild(script);
-
-        executeCaptcha(dataSiteKey);
-      }
-    </script>
+function updateDataSiteKey(siteKey){
+      var recaptchaDiv = document.querySelector('.g-recaptcha');
+      recaptchaDiv.setAttribute('data-sitekey', `${siteKey}`);
+   }
+</script>
 
 </body>
 </html>
