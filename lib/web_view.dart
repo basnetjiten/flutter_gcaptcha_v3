@@ -43,7 +43,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
-            // controller.loadUrl('assets/recaptcha/index.html');
+            // controller.loadUrl('assets/recaptcha/gindex.html');
             // Future.delayed(const Duration(seconds: 1)).then(
             //       (value) {
             //     controller.webViewController.runJavascript(
@@ -51,7 +51,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
             //   },
             // );
           if (_useGCaptchaV3) {
-            controller.loadUrl('assets/recaptcha/reindex.html');
+            controller.loadUrl('assets/recaptcha/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
                   (value) {
                 controller.webViewController.runJavascript(
@@ -59,7 +59,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               },
             );
           } else {
-          controller.loadUrl('assets/webpages/index.html');
+          controller.loadUrl('assets/webpages/gindex.html');
           Future.delayed(const Duration(seconds: 1)).then(
             (value) {
               controller.webViewController.runJavascript(
