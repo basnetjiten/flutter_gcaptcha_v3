@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captcha_cubit.dart';
@@ -28,11 +27,13 @@ class ReCaptchaWebView extends StatefulWidget {
 class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
   late final VerifyCaptchaCubit _verifyCaptchaCubit;
 
+  late bool _useGCaptchaV3;
+
   @override
   void initState() {
     super.initState();
-
     _verifyCaptchaCubit = VerifyCaptchaCubit();
+    _useGCaptchaV3 = RecaptchaHandler.instance.useGCaptchaV3;
   }
 
   @override
@@ -43,37 +44,30 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
-
-
-          controller.loadUrl('assets/webpages/g_v3_index.html');
+          RecaptchaHandler.configureCaptchaVersion(controller);
           widget.onControllerReady(controller);
-
-          Future.delayed(const Duration(seconds: 1)).then(
-                (value) {
-                  controller.webViewController.runJavascript(
-                  'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
-            },
-          );
         },
-        javascriptChannels: {
-          JavascriptChannel(
-            name: 'Ready',
-            onMessageReceived: (JavascriptMessage message) {},
-          ),
-          JavascriptChannel(
-            name: 'Captcha',
-            onMessageReceived: (JavascriptMessage message) {
-              // if (RecaptchaHandler.instance.hasSecreteKey) {
-              //   _verifyCaptchaCubit.verifyCaptchaToken(
-              //     token: message.message,
-              //     secret: RecaptchaHandler.instance.secreteKey!,
-              //   );
-              // } else {
-                widget.onTokenReceived(message.message);
-              //}
-            },
-          ),
-        },
+        javascriptChannels: _useGCaptchaV3
+            ? {
+                JavascriptChannel(
+                  name: 'Ready',
+                  onMessageReceived: (JavascriptMessage message) {},
+                ),
+                JavascriptChannel(
+                  name: 'V3Captcha',
+                  onMessageReceived: (JavascriptMessage message) {
+                    widget.onTokenReceived(message.message);
+                  },
+                ),
+              }
+            : {
+                JavascriptChannel(
+                  name: 'V2Captcha',
+                  onMessageReceived: (JavascriptMessage message) {
+                    widget.onTokenReceived(message.message);
+                  },
+                ),
+              },
       ),
     );
   }

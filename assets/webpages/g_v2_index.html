@@ -18,8 +18,8 @@
 
 <script>
    function captchaCallback(response){
-        if(typeof Captcha!=="undefined"){
-          Captcha.postMessage(response);
+        if(typeof V2Captcha!=="undefined"){
+          V2Captcha.postMessage(response);
         }
       }
 </script>
@@ -27,9 +27,9 @@
 
 <script>
 
-function updateDataSiteKey(response){
+function updateV2DataSiteKey(siteKey){
       var recaptchaDiv = document.querySelector('.g-recaptcha');
-      recaptchaDiv.setAttribute('data-sitekey', 'your-site-key-goes-here');
+      recaptchaDiv.setAttribute('data-sitekey', `${siteKey}`);
    }
 </script>
 

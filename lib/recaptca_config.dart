@@ -11,10 +11,10 @@ class RecaptchaHandler {
   static RecaptchaHandler? _instance;
 
   late String siteKey;
+  bool useGCaptchaV3 = false;
   String? secreteKey;
 
-
-  bool get hasSecreteKey => secreteKey!=null;
+  bool get hasSecreteKey => secreteKey != null;
 
   /// Returns an instance using the default [Env].
   static RecaptchaHandler get instance {
@@ -22,12 +22,36 @@ class RecaptchaHandler {
     return _instance!;
   }
 
-  setupSiteKey({required String dataSiteKey, String? secreteKey}) {
+  setupSiteKey(
+      {required String dataSiteKey,
+      String? secreteKey,
+      bool useGCaptchaV3 = true}) {
     _instance?.siteKey = dataSiteKey;
     _instance?.secreteKey = secreteKey;
+    _instance?.useGCaptchaV3 = useGCaptchaV3;
   }
 
-  static execute({required WebViewPlusController controller}) {
+  static configureCaptchaVersion(WebViewPlusController controller) {
+    if (_instance!.useGCaptchaV3) {
+      controller.loadUrl('assets/webpages/g_v3_index.html');
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) {
+          controller.webViewController.runJavascript(
+              'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
+        },
+      );
+    } else {
+      controller.loadUrl('assets/webpages/g_v2_index.html');
+      Future.delayed(const Duration(seconds: 1)).then(
+        (value) {
+          controller.webViewController.runJavascript(
+              'updateV2DataSiteKey("${RecaptchaHandler.instance.siteKey}")');
+        },
+      );
+    }
+  }
+
+  static executeV3({required WebViewPlusController controller}) {
     controller.webViewController
         .runJavascript('readyCaptcha("${_instance?.siteKey}")');
   }
