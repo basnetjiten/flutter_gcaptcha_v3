@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
-class ReCaptchaWebView extends StatefulWidget {
+class ReCaptchaWebView extends StatelessWidget {
   const ReCaptchaWebView(
       {Key? key,
       required this.width,
@@ -18,28 +18,22 @@ class ReCaptchaWebView extends StatefulWidget {
   final Function(String token) onTokenReceived;
 
   @override
-  State<ReCaptchaWebView> createState() => _ReCaptchaWebViewState();
-}
-
-class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
-  late WebViewPlusController _webViewPlusController;
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height,
-      width: widget.width,
+      height: height,
+      width: width,
       child: WebViewPlus(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
-            _webViewPlusController=controller;
-            _webViewPlusController.loadUrl("packages/flutter_gcaptcha_v3/assets/index.html");
-            Future.delayed(const Duration(seconds: 1)).then(
+
+            controller.loadUrl("packages/flutter_gcaptcha_v3/assets/index.html");
+            Future.delayed(const Duration(seconds: 2)).then(
               (value) {
-                _webViewPlusController.webViewController.runJavascript(
+                controller.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
               },
             );
-            widget.onControllerReady(_webViewPlusController);
+            onControllerReady(controller);
           },
           javascriptChannels: {
             JavascriptChannel(
@@ -50,7 +44,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
               name: 'Captcha',
               onMessageReceived: (JavascriptMessage message) {
                 log('TOKEN==> ${message.message}');
-                widget.onTokenReceived(message.message);
+               onTokenReceived(message.message);
               },
             ),
           }),
