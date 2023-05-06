@@ -22,6 +22,7 @@ class ReCaptchaWebView extends StatefulWidget {
 }
 
 class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
+  late WebViewPlusController _webViewPlusController;
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -30,14 +31,15 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
-            controller.loadUrl("assets/page/index.html");
+            _webViewPlusController=controller;
+            _webViewPlusController.loadUrl("assets/page/index.html");
             Future.delayed(const Duration(seconds: 1)).then(
               (value) {
-                controller.webViewController.runJavascript(
+                _webViewPlusController.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
               },
             );
-            widget.onControllerReady(controller);
+            widget.onControllerReady(_webViewPlusController);
           },
           javascriptChannels: {
             JavascriptChannel(
