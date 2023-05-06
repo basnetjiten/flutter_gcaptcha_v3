@@ -28,4 +28,4 @@ flutter:
 
   # To add assets to your package, add an assets section, like this:
    assets:
-     - assets/web/index.html
+     - index.html
