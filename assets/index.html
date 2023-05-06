@@ -2,24 +2,10 @@
 <html>
 <head>
     <title>reCAPTCHA</title>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <!--    <script src="https://www.google.com/recaptcha/api.js?render={siteKey}"-->
-    <!--            async defer></script>-->
     <script id="recaptcha-script"></script>
 
 </head>
 <body>
-<!--Recatpcha V2-->
-
-<!--<form action="?" method="POST">-->
-<!--    <div class="g-recaptcha"-->
-<!--         data-sitekey="6Lf0LN8lAAAAAOk7CH_Qbpqc3scgnSeGNOyZglJQ"-->
-<!--         data-callback="captchaCallback"-->
-<!--         style="transform:scale(0.8);transform-origin:0;-webkit-transform:scale(0.8);-->
-<!--transform:scale(0.8);-webkit-transform-origin:0 0;transform-origin:0 0;"></div>-->
-<!--</form>-->
-
-<!--Recatpcha V3-->
 <script>
       function executeCaptcha(siteKey){
         if(typeof Captcha!=="undefined"){
@@ -30,6 +16,7 @@
            });
         }
       }
+
 </script>
 
 <script>
@@ -49,6 +36,7 @@
 
         executeCaptcha(dataSiteKey);
       }
+
 </script>
 
 </body>
