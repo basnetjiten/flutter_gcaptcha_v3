@@ -30,9 +30,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
-            controller.loadUrl(Uri.dataFromString("assets/page/index.html",
-                    mimeType: 'text/html')
-                .toString());
+            controller.loadUrl("assets/page/index.html");
             Future.delayed(const Duration(seconds: 1)).then(
               (value) {
                 controller.webViewController.runJavascript(
