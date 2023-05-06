@@ -1,6 +1,5 @@
 # Exclude directories
-lib/**
-assets/**
+
 
 # Include specific files
 !README.md
