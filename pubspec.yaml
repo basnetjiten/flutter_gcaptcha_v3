@@ -25,5 +25,7 @@ dev_dependencies:
 
 
 flutter:
-  assets:
-    - assets/index.html
+
+  # To add assets to your package, add an assets section, like this:
+   assets:
+     - assets/webpages/

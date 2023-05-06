@@ -25,9 +25,7 @@ class ReCaptchaWebView extends StatelessWidget {
       child: WebViewPlus(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
-            controller.loadUrl(
-                Uri.dataFromString('assets/index.html', mimeType: 'text/html')
-                    .toString());
+            controller.loadUrl("assets/webpages/index.html");
             Future.delayed(const Duration(seconds: 1)).then(
               (value) {
                 controller.webViewController.runJavascript(
