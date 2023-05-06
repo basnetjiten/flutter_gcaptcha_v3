@@ -32,7 +32,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
             _webViewPlusController=controller;
-            _webViewPlusController.loadUrl("packages/flutter_gcaptcha_v3/assets/page/index.html");
+            _webViewPlusController.loadUrl("packages/flutter_gcaptcha_v3/assets/index.html");
             Future.delayed(const Duration(seconds: 1)).then(
               (value) {
                 _webViewPlusController.webViewController.runJavascript(
