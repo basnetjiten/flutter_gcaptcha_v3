@@ -3,10 +3,6 @@ import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captc
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
-/**
- * @Author: Jiten Basnet
- * @Company: EB Pearls
- */
 class ReCaptchaWebView extends StatefulWidget {
   const ReCaptchaWebView(
       {Key? key,
@@ -43,30 +39,23 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       child: WebViewPlus(
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
-            // controller.loadUrl('assets/recaptcha/gindex.html');
-            // Future.delayed(const Duration(seconds: 1)).then(
-            //       (value) {
-            //     controller.webViewController.runJavascript(
-            //         'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
-            //   },
-            // );
           if (_useGCaptchaV3) {
             controller.loadUrl('assets/recaptcha/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
-                  (value) {
+              (value) {
                 controller.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
               },
             );
           } else {
-          controller.loadUrl('assets/webpages/gindex.html');
-          Future.delayed(const Duration(seconds: 1)).then(
-            (value) {
-              controller.webViewController.runJavascript(
-                  'updateDataSiteKey("${RecaptchaHandler.instance.siteKey}")');
-            },
-          );
-             }
+            controller.loadUrl('assets/webpages/index.html');
+            Future.delayed(const Duration(seconds: 1)).then(
+              (value) {
+                controller.webViewController.runJavascript(
+                    'updateDataSiteKey("${RecaptchaHandler.instance.siteKey}")');
+              },
+            );
+          }
           widget.onControllerReady(controller);
         },
         javascriptChannels: _useGCaptchaV3

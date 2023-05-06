@@ -1,39 +1,45 @@
-<!--
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# flutter_gcaptcha_v3
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/guides/libraries/writing-package-pages).
+[![Platform](https://img.shields.io/badge/platform-Flutter-blue.svg)](https://flutter.dev/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-purple.svg)](https://opensource.org/licenses/MIT)
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-library-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/developing-packages).
--->
+This project is a simple implementation of Google reCAPTCHA v3 in Flutter. It allows you to add a layer of security to your Flutter app by verifying that the user is not a robot.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
 
-## Features
+## Using the Plugin
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+### Preparations
 
-## Getting started
+First, include the plugin in your project's dependencies by including it in the relevant section of your `pubspec.yaml`:
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+```yaml
+ dependencies:
+  
+  flutter_gcaptcha_v3: 0.0.1
 
-## Usage
-
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder.
-
-```dart
-const like = 'sample';
 ```
+## Google recaptcha V3 API key
 
-## Additional information
+To register a URL in reCAPTHCA, follow these steps:
+- Go to the reCAPTHCHA admin console at https://www.google.com/recaptcha/admin
+- Sign in using your Google account credentials
+Add Label name (eg: app name)
+Selected reCaPTHCA type as `Challenge(V3)`,
 
-TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.
+
+- Add Domains: click on the “+ Add” button to register a website,
+- For Testing purposes, we need to add a domain name as  `localhost`
+In production, we can later add another real domain name (example.com)
+- `GOOGLE CLOUD PLATFORM:` Add an app name and it will create a project to enable the required APIS
+- Click Save and Submit
+
+You will be given two keys:
+- `Site Key`: used to show the captcha verification widget on your site.
+- `Secret Key`: is used for authentication communication between the application & recaptcha server to verify the user’s response
+
+## Server-side verification
+
+Using the secret key, the `token` obtained usign this package (`flutter_gcaptcha_v3`)  is verified using this Google API https://www.google.com/recaptcha/api/siteverify.
+
+To verify the token, we can directly call the above API or integrate the API into the backend server.
+Please find out more to verify the token here: https://developers.google.com/recaptcha/docs/verify
