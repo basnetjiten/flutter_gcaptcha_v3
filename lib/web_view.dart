@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
-class ReCaptchaWebView extends StatelessWidget {
+class ReCaptchaWebView extends StatefulWidget {
   const ReCaptchaWebView(
       {Key? key,
       required this.width,
@@ -18,22 +18,26 @@ class ReCaptchaWebView extends StatelessWidget {
   final Function(String token) onTokenReceived;
 
   @override
+  State<ReCaptchaWebView> createState() => _ReCaptchaWebViewState();
+}
+
+class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
-      width: width,
+      height: widget.height,
+      width: widget.width,
       child: WebViewPlus(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
-            log('http://localhost:58685/assets/webpages/index.html');
-            controller.loadUrl("assets/newpages/index.html");
+            controller.loadUrl("assets/web/index.html");
             Future.delayed(const Duration(seconds: 1)).then(
               (value) {
                 controller.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');
               },
             );
-            onControllerReady(controller);
+            widget.onControllerReady(controller);
           },
           javascriptChannels: {
             JavascriptChannel(
@@ -44,7 +48,7 @@ class ReCaptchaWebView extends StatelessWidget {
               name: 'Captcha',
               onMessageReceived: (JavascriptMessage message) {
                 log('TOKEN==> ${message.message}');
-                onTokenReceived(message.message);
+                widget.onTokenReceived(message.message);
               },
             ),
           }),
