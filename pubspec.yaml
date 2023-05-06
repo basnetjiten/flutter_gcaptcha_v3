@@ -1,6 +1,6 @@
 name: flutter_gcaptcha_v3
-description: A new Flutter package project.
-version: 0.0.1
+description: Implementation of Google reCAPTCHA v3 for Flutter (IOS/Android)
+version: 0.0.2
 homepage: https://www.jitenbasnet.com.np
 
 environment:
@@ -11,20 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-
-  #dependency injection
-  get_it: ^7.4.1
-  injectable: ^2.1.1
-
-  #state management
-  flutter_bloc: ^8.1.2
-
-  #data models
-  freezed_annotation: ^2.2.0
-  json_annotation: ^4.8.1
-
-  #network requests
-  dio: ^5.1.1
 
   #webview
   webview_flutter_plus: ^0.3.0+2
@@ -37,14 +23,6 @@ dev_dependencies:
   #functional programmings
   dartz: ^0.10.1
 
-  #generators
-  build_runner: ^2.3.3
-  json_serializable: ^6.6.2
-  freezed: ^2.3.3
-  injectable_generator: ^2.1.4
-
-  # route generator
-  auto_route_generator: ^5.0.3
 
 flutter:
 

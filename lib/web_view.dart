@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gcaptcha_v3/auth/presentation/blocs/captcha/verify_captcha_cubit.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
@@ -20,14 +19,12 @@ class ReCaptchaWebView extends StatefulWidget {
 }
 
 class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
-  late final VerifyCaptchaCubit _verifyCaptchaCubit;
 
   late bool _useGCaptchaV3;
 
   @override
   void initState() {
     super.initState();
-    _verifyCaptchaCubit = VerifyCaptchaCubit();
     _useGCaptchaV3 = RecaptchaHandler.instance.useGCaptchaV3;
   }
 
