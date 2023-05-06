@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
@@ -23,7 +25,9 @@ class ReCaptchaWebView extends StatelessWidget {
       child: WebViewPlus(
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (controller) {
-            controller.loadString('assets/index.html');
+            log(Uri.parse('assets/index.html').isAbsolute.toString());
+            log('Recapthca==> ${RecaptchaHandler.instance.siteKey}');
+            controller.loadUrl('assets/index.html');
             Future.delayed(const Duration(seconds: 1)).then(
               (value) {
                 controller.webViewController.runJavascript(
