@@ -10,3 +10,9 @@
 
 ## 0.0.4
 * Feat: Add example and update captcha execution method
+
+## 0.0.5
+* Refactor: code clean up
+
+## 0.0.6
+* Fix: Controller issues and code clean ups

@@ -3,6 +3,7 @@
 * @Company: GTEN SOFTWARE PVT.LTD.
 */
 
+import 'package:flutter_gcaptcha_v3/constants.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
 class RecaptchaHandler {
@@ -18,8 +19,8 @@ class RecaptchaHandler {
     return _instance!;
   }
 
-  updateController({required WebViewPlusController controller}){
-    _instance?.controller=controller;
+  updateController({required WebViewPlusController controller}) {
+    _instance?.controller = controller;
   }
 
   /// setup the data site key
@@ -30,6 +31,6 @@ class RecaptchaHandler {
   /// Execute and call the  recaptcha API
   static executeV3() {
     _instance?.controller.webViewController
-        .runJavascript('readyCaptcha("${_instance?.siteKey}")');
+        .runJavascript('${AppConstants.readyCaptcha}("${_instance?.siteKey}")');
   }
 }

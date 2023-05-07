@@ -25,7 +25,11 @@ class ReCaptchaWebView extends StatelessWidget {
       child: WebViewPlus(
         backgroundColor: webViewColor,
         javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (controller) => _loadUrlAndUpdateController,
+        onWebViewCreated: (controller) {
+          RecaptchaHandler.instance.updateController(controller: controller);
+          controller.loadUrl(AppConstants.webPage);
+          _initializeReadyJs(controller);
+        } ,
         javascriptChannels: _initializeJavascriptChannels(),
       ),
     );
@@ -45,12 +49,6 @@ class ReCaptchaWebView extends StatelessWidget {
           },
         ),
       };
-  }
-
-  void _loadUrlAndUpdateController(WebViewPlusController controller) {
-    RecaptchaHandler.instance.updateController(controller: controller);
-    controller.loadUrl(AppConstants.webPage);
-    _initializeReadyJs(controller);
   }
 
   void _initializeReadyJs(WebViewPlusController controller) {
