@@ -7,3 +7,6 @@
 
 ## 0.0.3
 * Fix: FWFEvaluateJavaScriptError error
+
+## 0.0.4
+* Feat: Add example and update captcha execution method

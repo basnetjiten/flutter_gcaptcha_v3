@@ -24,7 +24,7 @@ class ReCaptchaWebView extends StatelessWidget {
             RecaptchaHandler.instance.updateController(controller: controller);
             controller.loadUrl(
                 "packages/flutter_gcaptcha_v3/assets/index.html");
-            Future.delayed(const Duration(seconds: 2)).then(
+            Future.delayed(const Duration(seconds: 3)).then(
                   (value) {
                 controller.webViewController.runJavascript(
                     'readyCaptcha("${RecaptchaHandler.instance.siteKey}")');

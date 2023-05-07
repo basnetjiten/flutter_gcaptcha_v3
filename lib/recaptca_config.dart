@@ -1,6 +1,6 @@
 /*
 * @Author:Jiten Basnet on 05/05/2023
-* @Company: EB Pearls
+* @Company: GTEN SOFTWARE PVT.LTD.
 */
 
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
