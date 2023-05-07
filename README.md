@@ -15,7 +15,7 @@ First, include the plugin in your project's dependencies by including it in the 
 ```yaml
  dependencies:
   
-  flutter_gcaptcha_v3: 0.0.1
+  flutter_gcaptcha_v3: any
 
 ```
 ## Google recaptcha V3 API key
