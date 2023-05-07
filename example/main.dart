@@ -14,12 +14,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'My Awesome App',
-        theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
-        ),
-        home: const MyHomePage());
+      title: 'My Awesome App',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
+      ),
+      home: const MyHomePage(),
+    );
   }
 }
 
@@ -38,11 +39,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ReCaptchaWebView(
           width: 200,
           height: 22,
-          onTokenReceived: (String token) {
-            /// After calling [RecaptchaHandler.executeV3()] you will receive the [token]
-            /// Verify your Token using the server
-            print("FINAL TOKEN===> $token");
-          },
+          webViewColor: null,
+          onTokenReceived: _onTokenReceived,
         ),
         ElevatedButton(
           onPressed: execute,
@@ -52,6 +50,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  /// Execute the Recaptcha V3  using this method call
+  // After calling [RecaptchaHandler.executeV3()] you will receive the [token]
+  // Verify your Token using the server
+  _onTokenReceived(String token) {
+    print("FINAL TOKEN===> $token");
+  }
+
+  // Execute the Recaptcha V3  using this method call
   void execute() => RecaptchaHandler.executeV3();
 }
