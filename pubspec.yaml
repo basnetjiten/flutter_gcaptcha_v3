@@ -1,6 +1,6 @@
 name: flutter_gcaptcha_v3
 description: Implementation of Google reCAPTCHA v3 for Flutter (IOS/Android)
-version: 0.0.5
+version: 0.0.6
 repository: https://github.com/basnetjiten/flutter_gcaptcha_v3
 
 environment:
@@ -14,6 +14,8 @@ dependencies:
 
   #webview
   webview_flutter_plus: ^0.3.0+2
+
+  flutter_inappwebview: ^5.7.2+3
 
 dev_dependencies:
   flutter_test:

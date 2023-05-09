@@ -11,26 +11,19 @@ class RecaptchaHandler {
 
   static RecaptchaHandler? _instance;
   late WebViewPlusController controller;
-  late String siteKey;
+  late String _siteKey;
+
+  String get siteKey => _siteKey;
 
   /// Returns an instance using the default [Env].
-  static RecaptchaHandler get instance {
-    _instance ??= RecaptchaHandler._();
-    return _instance!;
-  }
+  static RecaptchaHandler get instance => _instance ??= RecaptchaHandler._();
 
-  updateController({required WebViewPlusController controller}) {
-    _instance?.controller = controller;
-  }
+  /// updates the Web view controller
+  updateController({required WebViewPlusController controller}) => _instance?.controller = controller;
 
-  /// setup the data site key
-  setupSiteKey({required String dataSiteKey}) {
-    _instance?.siteKey = dataSiteKey;
-  }
+  /// setups the data site key
+  setupSiteKey({required String dataSiteKey}) => _instance?._siteKey = dataSiteKey;
 
-  /// Execute and call the  recaptcha API
-  static executeV3() {
-    _instance?.controller.webViewController
-        .runJavascript('${AppConstants.readyCaptcha}("${_instance?.siteKey}")');
-  }
+  /// Executes and call the  recaptcha API
+  static executeV3() => _instance?.controller.webViewController.runJavascript('${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
 }

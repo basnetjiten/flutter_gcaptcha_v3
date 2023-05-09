@@ -3,7 +3,9 @@ import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:flutter_gcaptcha_v3/web_view.dart';
 
 void main() {
+  /// STEP: 1
   /// Initialize your data site key
+  /// Should be called at main to setup the site key
   RecaptchaHandler.instance.setupSiteKey(dataSiteKey: 'YOUR-DATA-SITE-KEY');
   runApp(const MyApp());
 }
@@ -50,12 +52,16 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  // After calling [RecaptchaHandler.executeV3()] you will receive the [token]
-  // Verify your Token using the server
+  /// STEP: 3
+  /// After calling [RecaptchaHandler.executeV3()] you will receive the [token]
+  /// Verify your Token using the server
+
   _onTokenReceived(String token) {
     print("FINAL TOKEN===> $token");
   }
 
-  // Execute the Recaptcha V3  using this method call
+  /// STEP: 2
+  /// Execute the Recaptcha V3  using this method call
+
   void execute() => RecaptchaHandler.executeV3();
 }

@@ -1,6 +1,0 @@
-# Exclude directories
-
-
-# Include specific files
-!README.md
-!LICENSE

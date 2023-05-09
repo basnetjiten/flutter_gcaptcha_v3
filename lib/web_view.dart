@@ -10,7 +10,7 @@ class ReCaptchaWebView extends StatelessWidget {
       required this.width,
       required this.height,
       required this.onTokenReceived,
-      required this.webViewColor})
+       this.webViewColor=Colors.transparent})
       : super(key: key);
 
   final double width, height;
@@ -29,7 +29,7 @@ class ReCaptchaWebView extends StatelessWidget {
           RecaptchaHandler.instance.updateController(controller: controller);
           controller.loadUrl(AppConstants.webPage);
           _initializeReadyJs(controller);
-        } ,
+        },
         javascriptChannels: _initializeJavascriptChannels(),
       ),
     );
@@ -37,23 +37,24 @@ class ReCaptchaWebView extends StatelessWidget {
 
   Set<JavascriptChannel> _initializeJavascriptChannels() {
     return {
-        JavascriptChannel(
-          name: AppConstants.readyJsName,
-          onMessageReceived: (JavascriptMessage message) {},
-        ),
-        JavascriptChannel(
-          name: AppConstants.captchaJsName,
-          onMessageReceived: (JavascriptMessage message) {
-            log('TOKEN==> ${message.message}');
-            onTokenReceived(message.message);
-          },
-        ),
-      };
+      JavascriptChannel(
+        name: AppConstants.readyJsName,
+        onMessageReceived: (JavascriptMessage message) {},
+      ),
+      JavascriptChannel(
+        name: AppConstants.captchaJsName,
+        onMessageReceived: (JavascriptMessage message) {
+          log('TOKEN==> ${message.message}');
+          onTokenReceived(message.message);
+        },
+      ),
+    };
   }
 
   void _initializeReadyJs(WebViewPlusController controller) {
-    Future.delayed(const Duration(seconds: 3)).then(
-      (value) => controller.webViewController.runJavascript('${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")'),
+    Future.delayed(const Duration(seconds: 1)).then(
+      (value) => controller.webViewController.runJavascript(
+          '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")'),
     );
   }
 }
