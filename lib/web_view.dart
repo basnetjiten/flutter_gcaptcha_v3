@@ -32,9 +32,11 @@ class ReCaptchaWebView extends StatelessWidget {
           RecaptchaHandler.instance.updateController(controller: controller);
 
           //createLocalUrl(controller);
-          controller.loadUrl(AppConstants.webPage);
-
-          _initializeReadyJs(controller);
+           controller.loadUrl(AppConstants.webPage);
+          controller.webViewController.runJavascript(
+              '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")');
+          // Future.delayed(const Duration(seconds: 2))
+          //     .then((value) => _initializeReadyJs(controller));
         },
         javascriptChannels: _initializeJavascriptChannels(),
       ),
@@ -69,8 +71,8 @@ class ReCaptchaWebView extends StatelessWidget {
 
     final htmlPath = "${tempDir.path}/index.html";
 
-    log("html path" + htmlPath);
-    log("htmlText" + htmlText);
+    log("html path"+htmlPath);
+    log("htmlText"+htmlText);
 
     await File(htmlPath).writeAsString(htmlText);
     log("url:${Uri(scheme: 'file', path: htmlPath).toString()}");
