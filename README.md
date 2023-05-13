@@ -18,6 +18,8 @@ First, include the plugin in your project's dependencies by including it in the 
   flutter_gcaptcha_v3: any
 
 ```
+Note: This package might not work for localhost server, As the index.html is added locally and will not be accessible.
+Please trying hosting this index.html file in with your domain name and provide the url as params.
 ## Google recaptcha V3 API key
 
 To register a URL in reCAPTHCA, follow these steps:

@@ -4,12 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_gcaptcha_v3/constants.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 
 class ReCaptchaWebView extends StatelessWidget {
   const ReCaptchaWebView(
       {Key? key,
+      required this.url,
       required this.width,
       required this.height,
       required this.onTokenReceived,
@@ -19,6 +19,7 @@ class ReCaptchaWebView extends StatelessWidget {
   final double width, height;
   final Function(String token) onTokenReceived;
   final Color? webViewColor;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +29,11 @@ class ReCaptchaWebView extends StatelessWidget {
       child: WebViewPlus(
         backgroundColor: webViewColor,
         javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (controller) async{
+        onWebViewCreated: (controller) {
           RecaptchaHandler.instance.updateController(controller: controller);
-          final String htmlContent = await rootBundle.loadString(AppConstants.webPage);
 
           //createLocalUrl(controller);
-          controller.loadString(htmlContent,mimeType: 'text/html');
+          controller.loadUrl(url);
 
           Future.delayed(const Duration(seconds: 1))
               .then((value) => _initializeReadyJs(controller));
@@ -65,5 +65,4 @@ class ReCaptchaWebView extends StatelessWidget {
 
     RecaptchaHandler.executeV3();
   }
-
 }
