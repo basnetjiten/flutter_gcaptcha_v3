@@ -33,7 +33,7 @@ class ReCaptchaWebView extends StatelessWidget {
           final String htmlContent = await rootBundle.loadString(AppConstants.webPage);
 
           //createLocalUrl(controller);
-          controller.loadString(htmlContent);
+          controller.loadString(htmlContent,mimeType: 'text/html');
 
           Future.delayed(const Duration(seconds: 1))
               .then((value) => _initializeReadyJs(controller));
