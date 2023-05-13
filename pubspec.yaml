@@ -29,6 +29,6 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - packages/flutter_gcaptcha_v3/assets/html/index.html
+    - packages/flutter_gcaptcha_v3/assets/index.html
 
 

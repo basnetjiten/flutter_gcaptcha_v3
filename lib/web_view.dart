@@ -65,7 +65,7 @@ class ReCaptchaWebView extends StatelessWidget {
 
   void createLocalUrl(controller) async {
     final tempDir = await getTemporaryDirectory();
-    String htmlText = await rootBundle.loadString('packages/flutter_gcaptcha_v3/assets/html/index.html');
+    String htmlText = await rootBundle.loadString('packages/flutter_gcaptcha_v3/assets/index.html');
 
     final htmlPath = "${tempDir.path}/index.html";
 
