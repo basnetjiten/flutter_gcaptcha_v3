@@ -1,7 +1,8 @@
 <html>
 <head>
     <title>reCAPTCHA</title>
-    <script id="recaptcha-script"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script id="recaptcha-script"async defer></script>
 
 </head>
 <body>
@@ -32,6 +33,7 @@
 
         head.appendChild(script);
 
+        executeCaptcha(dataSiteKey);
       }
 
 </script>
