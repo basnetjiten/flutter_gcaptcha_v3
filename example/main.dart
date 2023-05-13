@@ -43,6 +43,7 @@ class _MyHomePageState extends State<MyHomePage> {
           height: 22,
           webViewColor: null,
           onTokenReceived: _onTokenReceived,
+          url: 'https:yourdomain.com/index.html',
         ),
         ElevatedButton(
           onPressed: execute,

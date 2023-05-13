@@ -16,3 +16,7 @@
 
 ## 0.0.6
 * Fix: Controller issues and code clean ups
+
+## 1.0.0
+* Feat: updated RecaptCapthWebView to take hosted url params
+* docs: updated Note to Test Recaptcha using own hostel url

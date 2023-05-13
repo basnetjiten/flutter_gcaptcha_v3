@@ -1,5 +1,7 @@
 import 'dart:developer';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_gcaptcha_v3/constants.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter_plus/webview_flutter_plus.dart';
@@ -7,15 +9,17 @@ import 'package:webview_flutter_plus/webview_flutter_plus.dart';
 class ReCaptchaWebView extends StatelessWidget {
   const ReCaptchaWebView(
       {Key? key,
+      required this.url,
       required this.width,
       required this.height,
       required this.onTokenReceived,
-       this.webViewColor=Colors.transparent})
+      this.webViewColor = Colors.transparent})
       : super(key: key);
 
   final double width, height;
   final Function(String token) onTokenReceived;
   final Color? webViewColor;
+  final String url;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +31,12 @@ class ReCaptchaWebView extends StatelessWidget {
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
           RecaptchaHandler.instance.updateController(controller: controller);
-          controller.loadUrl(AppConstants.webPage);
-          _initializeReadyJs(controller);
+
+          //createLocalUrl(controller);
+          controller.loadUrl(url);
+
+          Future.delayed(const Duration(seconds: 1))
+              .then((value) => _initializeReadyJs(controller));
         },
         javascriptChannels: _initializeJavascriptChannels(),
       ),
@@ -52,9 +60,9 @@ class ReCaptchaWebView extends StatelessWidget {
   }
 
   void _initializeReadyJs(WebViewPlusController controller) {
-    Future.delayed(const Duration(seconds: 1)).then(
-      (value) => controller.webViewController.runJavascript(
-          '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")'),
-    );
+    (value) => controller.webViewController.runJavascript(
+        '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")');
+
+    RecaptchaHandler.executeV3();
   }
 }

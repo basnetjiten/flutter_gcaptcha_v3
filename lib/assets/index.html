@@ -1,0 +1,42 @@
+<html>
+<head>
+    <title>reCAPTCHA</title>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script id="recaptcha-script"async defer></script>
+
+</head>
+<body>
+<script>
+      function executeCaptcha(siteKey){
+        if(typeof Captcha!=="undefined"){
+            grecaptcha.ready(function() {
+            grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
+            Captcha.postMessage(token);
+            });
+           });
+        }
+      }
+</script>
+
+<script>
+      function readyCaptcha(dataSiteKey) {
+
+        // Create a new script element
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+
+        // Set the script's source URL to the reCAPTCHA script
+        script.src = `https://www.google.com/recaptcha/api.js?render=${dataSiteKey}`;
+
+        // Insert the script element into the HTML document's head
+        var head = document.getElementsByTagName('head')[0];
+
+        head.appendChild(script);
+
+        executeCaptcha(dataSiteKey);
+      }
+
+</script>
+
+</body>
+</html>
