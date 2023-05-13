@@ -61,6 +61,8 @@ class ReCaptchaWebView extends StatelessWidget {
   void _initializeReadyJs(WebViewPlusController controller) {
     (value) => controller.webViewController.runJavascript(
         '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")');
+
+    RecaptchaHandler.executeV3();
   }
 
 }
