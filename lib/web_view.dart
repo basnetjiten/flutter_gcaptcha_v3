@@ -32,11 +32,10 @@ class ReCaptchaWebView extends StatelessWidget {
           RecaptchaHandler.instance.updateController(controller: controller);
 
           //createLocalUrl(controller);
-           controller.loadUrl(AppConstants.webPage);
-          controller.webViewController.runJavascript(
-              '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")');
-          // Future.delayed(const Duration(seconds: 2))
-          //     .then((value) => _initializeReadyJs(controller));
+          controller.loadUrl(AppConstants.webPage);
+
+          Future.delayed(const Duration(seconds: 1))
+              .then((value) => _initializeReadyJs(controller));
         },
         javascriptChannels: _initializeJavascriptChannels(),
       ),
@@ -64,18 +63,4 @@ class ReCaptchaWebView extends StatelessWidget {
         '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")');
   }
 
-  void createLocalUrl(controller) async {
-    final tempDir = await getTemporaryDirectory();
-    String htmlText = await rootBundle
-        .loadString('packages/flutter_gcaptcha_v3/assets/index.html');
-
-    final htmlPath = "${tempDir.path}/index.html";
-
-    log("html path"+htmlPath);
-    log("htmlText"+htmlText);
-
-    await File(htmlPath).writeAsString(htmlText);
-    log("url:${Uri(scheme: 'file', path: htmlPath).toString()}");
-    controller.loadUrl(Uri(scheme: 'file', path: htmlPath).toString());
-  }
 }
