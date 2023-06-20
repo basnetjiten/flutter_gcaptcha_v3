@@ -56,5 +56,6 @@ class ReCaptchaWebView extends StatelessWidget {
 
   void _initializeReadyJs(WebViewPlusController controller) {
     RecaptchaHandler.instance.updateController(controller: controller);
+
   }
 }
