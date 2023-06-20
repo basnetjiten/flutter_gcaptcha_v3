@@ -30,11 +30,9 @@ class ReCaptchaWebView extends StatelessWidget {
         backgroundColor: webViewColor,
         javascriptMode: JavascriptMode.unrestricted,
         onWebViewCreated: (controller) {
-          RecaptchaHandler.instance.updateController(controller: controller);
-          controller.loadUrl(url);
+          controller.loadUrl(url).then((value) =>  Future.delayed(const Duration(seconds: 3))
+              .then((value) => _initializeReadyJs(controller)));
 
-          Future.delayed(const Duration(milliseconds: 500))
-              .then((value) => _initializeReadyJs(controller));
         },
         javascriptChannels: _initializeJavascriptChannels(),
       ),
@@ -50,7 +48,6 @@ class ReCaptchaWebView extends StatelessWidget {
       JavascriptChannel(
         name: AppConstants.captchaJsName,
         onMessageReceived: (JavascriptMessage message) {
-         // log('TOKEN==> ${message.message}');
           onTokenReceived(message.message);
         },
       ),
@@ -58,7 +55,7 @@ class ReCaptchaWebView extends StatelessWidget {
   }
 
   void _initializeReadyJs(WebViewPlusController controller) {
-    controller.webViewController.runJavascript(
-        '${AppConstants.readyCaptcha}("${RecaptchaHandler.instance.siteKey}")').then((value) => RecaptchaHandler.executeV3());
+    RecaptchaHandler.instance.updateController(controller: controller);
+
   }
 }
