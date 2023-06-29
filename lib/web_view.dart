@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/constants.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
-import 'package:webview_flutter_plus/webview_flutter_plus.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
+// ignore: must_be_immutable
 class ReCaptchaWebView extends StatelessWidget {
-  const ReCaptchaWebView(
+  ReCaptchaWebView(
       {Key? key,
       required this.url,
       required this.width,
@@ -17,42 +18,38 @@ class ReCaptchaWebView extends StatelessWidget {
   final Function(String token) onTokenReceived;
   final Color? webViewColor;
   final String url;
+  WebViewController? controller;
+
+  setWebviewConfigs() {
+    controller = WebViewController()
+      ..setBackgroundColor(webViewColor!)
+      ..setJavaScriptMode(JavaScriptMode.unrestricted)
+      ..addJavaScriptChannel(AppConstants.readyJsName,
+          onMessageReceived: (JavaScriptMessage message) {})
+      ..addJavaScriptChannel(AppConstants.captchaJsName,
+          onMessageReceived: (JavaScriptMessage message) {
+        onTokenReceived(message.message);
+      });
+
+    controller!.loadRequest(Uri.parse(url)).then((value) =>
+        Future.delayed(const Duration(seconds: 3))
+            .then((value) => _initializeReadyJs(controller!)));
+  }
 
   @override
   Widget build(BuildContext context) {
+    setWebviewConfigs();
+
     return SizedBox(
       height: height,
       width: width,
-      child: WebViewPlus(
-        backgroundColor: webViewColor,
-        javascriptMode: JavascriptMode.unrestricted,
-        onWebViewCreated: (controller) {
-          controller.loadUrl(url).then((value) =>  Future.delayed(const Duration(seconds: 3))
-              .then((value) => _initializeReadyJs(controller)));
-
-        },
-        javascriptChannels: _initializeJavascriptChannels(),
+      child: WebViewWidget(
+        controller: controller!,
       ),
     );
   }
 
-  Set<JavascriptChannel> _initializeJavascriptChannels() {
-    return {
-      JavascriptChannel(
-        name: AppConstants.readyJsName,
-        onMessageReceived: (JavascriptMessage message) {},
-      ),
-      JavascriptChannel(
-        name: AppConstants.captchaJsName,
-        onMessageReceived: (JavascriptMessage message) {
-          onTokenReceived(message.message);
-        },
-      ),
-    };
-  }
-
-  void _initializeReadyJs(WebViewPlusController controller) {
+  void _initializeReadyJs(WebViewController controller) {
     RecaptchaHandler.instance.updateController(controller: controller);
-
   }
 }
