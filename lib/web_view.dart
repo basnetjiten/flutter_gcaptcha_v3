@@ -22,7 +22,7 @@ class ReCaptchaWebView extends StatelessWidget {
 
   setWebviewConfigs() {
     controller = WebViewController()
-      ..setBackgroundColor(webViewColor!)
+      // ..setBackgroundColor(webViewColor!)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel(AppConstants.readyJsName,
           onMessageReceived: (JavaScriptMessage message) {})
