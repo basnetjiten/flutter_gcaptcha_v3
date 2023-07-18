@@ -3,9 +3,8 @@ import 'package:flutter_gcaptcha_v3/constants.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-// ignore: must_be_immutable
 class ReCaptchaWebView extends StatelessWidget {
-  ReCaptchaWebView(
+  const ReCaptchaWebView(
       {Key? key,
       required this.url,
       required this.width,
@@ -18,11 +17,11 @@ class ReCaptchaWebView extends StatelessWidget {
   final Function(String token) onTokenReceived;
   final Color? webViewColor;
   final String url;
-  WebViewController? controller;
+  static late WebViewController controller;
 
   setWebviewConfigs() {
     controller = WebViewController()
-      // ..setBackgroundColor(webViewColor!)
+      ..setBackgroundColor(webViewColor ?? Colors.transparent)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel(AppConstants.readyJsName,
           onMessageReceived: (JavaScriptMessage message) {})
@@ -31,9 +30,9 @@ class ReCaptchaWebView extends StatelessWidget {
         onTokenReceived(message.message);
       });
 
-    controller!.loadRequest(Uri.parse(url)).then((value) =>
+    controller.loadRequest(Uri.parse(url)).then((value) =>
         Future.delayed(const Duration(seconds: 3))
-            .then((value) => _initializeReadyJs(controller!)));
+            .then((value) => _initializeReadyJs(controller)));
   }
 
   @override
@@ -44,7 +43,7 @@ class ReCaptchaWebView extends StatelessWidget {
       height: height,
       width: width,
       child: WebViewWidget(
-        controller: controller!,
+        controller: controller,
       ),
     );
   }
