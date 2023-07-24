@@ -31,7 +31,7 @@ class RecaptchaHandler {
       _instance?._siteKey = dataSiteKey;
 
   /// Executes and call the  recaptcha API
-  static executeV3([String action = 'submit']) =>
+  static executeV3({String action = 'submit'}) =>
       _instance?.controller.runJavaScript(
           '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "$action")');
 }

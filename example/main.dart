@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:flutter_gcaptcha_v3/web_view.dart';
@@ -16,7 +18,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Awesome App',
+      title: 'flutter_gcaptcha_v3',
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.purple),
@@ -46,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
           url: 'https:yourdomain.com/index.html',
         ),
         ElevatedButton(
-          onPressed: execute,
+          onPressed: _execute,
           child: const Text('submit'),
         )
       ],
@@ -58,11 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Verify your Token using the server
 
   _onTokenReceived(String token) {
-    print("FINAL TOKEN===> $token");
+    log("Obtained TOKEN===> $token");
   }
 
   /// STEP: 2
   /// Execute the Recaptcha V3  using this method call
 
-  void execute() => RecaptchaHandler.executeV3();
+  void _execute() => RecaptchaHandler.executeV3();
 }

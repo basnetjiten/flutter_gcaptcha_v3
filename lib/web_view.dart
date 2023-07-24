@@ -17,10 +17,10 @@ class ReCaptchaWebView extends StatelessWidget {
   final Function(String token) onTokenReceived;
   final Color? webViewColor;
   final String url;
-  static late WebViewController controller;
+  static late WebViewController _controller;
 
-  setWebviewConfigs() {
-    controller = WebViewController()
+  _setWebViewConfigs() {
+    _controller = WebViewController()
       ..setBackgroundColor(webViewColor ?? Colors.transparent)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel(AppConstants.readyJsName,
@@ -30,20 +30,20 @@ class ReCaptchaWebView extends StatelessWidget {
         onTokenReceived(message.message);
       });
 
-    controller.loadRequest(Uri.parse(url)).then((value) =>
-        Future.delayed(const Duration(seconds: 3))
-            .then((value) => _initializeReadyJs(controller)));
+    _controller.loadRequest(Uri.parse(url)).then((value) =>
+        Future.delayed(const Duration(seconds: 2))
+            .then((value) => _initializeReadyJs(_controller)));
   }
 
   @override
   Widget build(BuildContext context) {
-    setWebviewConfigs();
+    _setWebViewConfigs();
 
     return SizedBox(
       height: height,
       width: width,
       child: WebViewWidget(
-        controller: controller,
+        controller: _controller,
       ),
     );
   }
