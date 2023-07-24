@@ -8,7 +8,7 @@ void main() {
   /// STEP: 1
   /// Initialize your data site key
   /// Should be called at main to setup the site key
-  RecaptchaHandler.instance.setupSiteKey(dataSiteKey: 'YOUR-DATA-SITE-KEY');
+  RecaptchaHandler.instance.setupSiteKey(dataSiteKey: 'YOUR-DATA-SITE-KEY',useCustomAction:true);
   runApp(const MyApp());
 }
 

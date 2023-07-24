@@ -12,6 +12,7 @@ class RecaptchaHandler {
   static RecaptchaHandler? _instance;
   late WebViewController controller;
   late String _siteKey;
+  bool _useCustomAction = false;
 
   String get siteKey => _siteKey;
 
@@ -22,16 +23,33 @@ class RecaptchaHandler {
   updateController({required WebViewController controller}) {
     _instance?.controller = controller;
 
-    controller.runJavaScript(
-        '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "submit")');
+    if (_instance?._useCustomAction ?? false) {
+      controller.runJavaScript(
+          '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "submit")');
+    } else {
+      controller.runJavaScript(
+          '${AppConstants.readyCaptcha}("${_instance?._siteKey}"');
+    }
   }
 
   /// setups the data site key
-  setupSiteKey({required String dataSiteKey}) =>
-      _instance?._siteKey = dataSiteKey;
+  void setupSiteKey(
+      {required String dataSiteKey, bool useCustomAction = false}) {
+    _instance?._siteKey = dataSiteKey;
+    _instance?._useCustomAction = useCustomAction;
+  }
 
   /// Executes and call the  recaptcha API
-  static executeV3({String action = 'submit'}) =>
+  /// Use [_useCustomAction] to execute javascript with custom action name
+  /// eg. login, submit, register etc
+  /// [_useCustomAction] is [false] by default and [submit] action name is used
+  static executeV3({String action = 'submit'}) {
+    if (_instance?._useCustomAction ?? false) {
       _instance?.controller.runJavaScript(
           '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "$action")');
+    } else {
+      _instance?.controller.runJavaScript(
+          '${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
+    }
+  }
 }
