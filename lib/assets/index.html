@@ -7,19 +7,17 @@
 </head>
 <body>
 <script>
-      function executeCaptcha(siteKey){
+      function executeCaptcha(siteKey, action){
         if(typeof Captcha!=="undefined"){
             grecaptcha.ready(function() {
-            grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
+            grecaptcha.execute(siteKey, { action }).then(function(token) {
             Captcha.postMessage(token);
             });
            });
         }
       }
-</script>
-
-<script>
-      function readyCaptcha(dataSiteKey) {
+      
+      function readyCaptcha(dataSiteKey, action) {
 
         // Create a new script element
         var script = document.createElement('script');
@@ -33,7 +31,7 @@
 
         head.appendChild(script);
 
-        executeCaptcha(dataSiteKey);
+        executeCaptcha(dataSiteKey, action);
       }
 
 </script>
