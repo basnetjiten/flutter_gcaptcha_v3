@@ -27,8 +27,7 @@ class RecaptchaHandler {
       controller.runJavaScript(
           '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "submit")');
     } else {
-      controller.runJavaScript(
-          '${AppConstants.readyCaptcha}("${_instance?._siteKey}"');
+      controller.runJavaScript('${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
     }
   }
 

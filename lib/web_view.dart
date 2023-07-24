@@ -36,9 +36,9 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
         widget.onTokenReceived(message.message);
       });
 
-    _controller.loadRequest(Uri.parse(widget.url)).then((value) =>
-        Future.delayed(const Duration(seconds: 2))
-            .then((value) => _initializeReadyJs()));
+    _controller
+        .loadRequest(Uri.parse(widget.url))
+        .then((value) => _initializeReadyJs());
   }
 
   @override
