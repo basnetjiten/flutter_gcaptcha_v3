@@ -25,7 +25,7 @@ class RecaptchaHandler {
 
     if (_instance?._useCustomAction ?? false) {
       controller.runJavaScript(
-          '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "submit")');
+          '${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
     } else {
       controller.runJavaScript('${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
     }
@@ -45,7 +45,7 @@ class RecaptchaHandler {
   static executeV3({String action = 'submit'}) {
     if (_instance?._useCustomAction ?? false) {
       _instance?.controller.runJavaScript(
-          '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "$action")');
+          '${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
     } else {
       _instance?.controller.runJavaScript(
           '${AppConstants.readyCaptcha}("${_instance?._siteKey}")');
