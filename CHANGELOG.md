@@ -27,5 +27,4 @@
 * code clean up (Tested with live hostel url)
 
 ## 2.0.1
-
-switched to WebViewWidget Thanks @[Kajitharaj](https://github.com/Kajitharaj)
+* switched to WebViewWidget Thanks @[Kajitharaj](https://github.com/Kajitharaj)
