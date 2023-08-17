@@ -36,7 +36,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
         widget.onTokenReceived(message.message);
       });
 
-    _controller.loadRequest(Uri.parse(widget.url)).then((value)  => _initializeReadyJs());
+    _controller.loadRequest(Uri.parse('packages/flutter_gcaptcha_v3/assets/index.html')).then((value)  => _initializeReadyJs());
   }
 
   @override

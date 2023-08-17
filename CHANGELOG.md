@@ -26,5 +26,5 @@
 * docs: updated Note to Test Recaptcha using own hostel url
 * code clean up (Tested with live hostel url)
 
-## 2.0.1
+## 2.0.2
 * switched to WebViewWidget Thanks @[Kajitharaj](https://github.com/Kajitharaj)

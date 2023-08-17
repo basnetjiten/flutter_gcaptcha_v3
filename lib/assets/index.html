@@ -2,7 +2,7 @@
 <head>
     <title>reCAPTCHA</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script id="recaptcha-script"async defer></script>
+    <script id="recaptcha-script" async defer></script>
 
 </head>
 <body>
@@ -12,7 +12,11 @@
             grecaptcha.ready(function() {
             grecaptcha.execute(siteKey, { action }).then(function(token) {
             Captcha.postMessage(token);
-            });
+            })
+            .catch(function(error) {
+            // Post the error message back to the WebView
+            Captcha.postMessage("error: " + error.message);
+           });
            });
         }
       }
