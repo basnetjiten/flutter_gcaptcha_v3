@@ -43,7 +43,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       });
 
     _controller
-        .loadFile('assets/index.html')
+        .loadFlutterAsset('assets/index.html')
         .then((value) => _initializeReadyJs());
   }
 
