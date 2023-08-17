@@ -28,3 +28,5 @@
 
 ## 2.0.2
 * switched to WebViewWidget Thanks @[Kajitharaj](https://github.com/Kajitharaj)
+## 2.0.3
+* Feat: add error callback token generation
