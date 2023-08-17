@@ -46,8 +46,11 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       });
 
     _controller
-        .loadFlutterAsset('assets/index.html')
-        .then((value) => Future.delayed(const Duration(seconds: 1)).then((value) => _initializeReadyJs()));
+        .loadFlutterAsset('packages/flutter_gcaptcha_v3/assets/index.html')
+        .then((value) {
+      print("INITIALIZEDD==>");
+      _initializeReadyJs();
+    });
   }
 
   @override
