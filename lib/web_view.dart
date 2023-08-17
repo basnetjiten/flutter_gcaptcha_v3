@@ -44,7 +44,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
 
     _controller
         .loadRequest(
-            Uri.parse('packages/flutter_gcaptcha_v3/assets/index.html'))
+            Uri.parse('assets/index.html'))
         .then((value) => _initializeReadyJs());
   }
 
