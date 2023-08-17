@@ -35,6 +35,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
           onMessageReceived: (JavaScriptMessage message) {})
       ..addJavaScriptChannel(AppConstants.captchaJsName,
           onMessageReceived: (JavaScriptMessage message) {
+        print("errror==>>${message.message}");
         if (message.message.contains("error")) {
           widget.onError(AppConstants.errorMessage);
         } else {
