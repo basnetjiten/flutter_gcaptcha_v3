@@ -23,21 +23,24 @@
 
 <script>
       function readyCaptcha(dataSiteKey) {
+  try {
+    // Create a new script element
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
 
-        // Create a new script element
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
+    // Set the script's source URL to the reCAPTCHA script
+    script.src = `https://www.google.com/recaptcha/api.js?render=${dataSiteKey}`;
 
-        // Set the script's source URL to the reCAPTCHA script
-        script.src = `https://www.google.com/recaptcha/api.js?render=${dataSiteKey}`;
+    // Insert the script element into the HTML document's head
+    var head = document.getElementsByTagName('head')[0];
+    head.appendChild(script);
 
-        // Insert the script element into the HTML document's head
-        var head = document.getElementsByTagName('head')[0];
-
-        head.appendChild(script);
-
-        executeCaptcha(dataSiteKey);
-      }
+    // Assuming executeCaptcha is defined elsewhere in your code
+    executeCaptcha(dataSiteKey);
+  } catch (error) {
+    Ready.postMessage('An error occurred while loading reCAPTCHA:', error);
+  }
+}
 
 </script>
 

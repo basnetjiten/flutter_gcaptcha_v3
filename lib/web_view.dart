@@ -32,7 +32,9 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       ..setBackgroundColor(widget.webViewColor ?? Colors.transparent)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel(AppConstants.readyJsName,
-          onMessageReceived: (JavaScriptMessage message) {})
+          onMessageReceived: (JavaScriptMessage message) {
+        print("error on ReadyJS ${message.message}");
+      })
       ..addJavaScriptChannel(AppConstants.captchaJsName,
           onMessageReceived: (JavaScriptMessage message) {
         print("errror==>>${message.message}");
@@ -44,7 +46,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       });
 
     _controller
-        .loadRequest(Uri.parse(widget.url))
+        .loadFile('assets/index.html')
         .then((value) => _initializeReadyJs());
   }
 
