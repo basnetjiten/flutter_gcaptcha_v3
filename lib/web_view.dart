@@ -62,7 +62,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
   @override
   void didUpdateWidget(covariant ReCaptchaWebView oldWidget) {
     super.didUpdateWidget(oldWidget);
-    _setWebViewConfigs();
+    //_setWebViewConfigs();
   }
 
   @override
