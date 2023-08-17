@@ -10,11 +10,13 @@ class ReCaptchaWebView extends StatefulWidget {
       required this.width,
       required this.height,
       required this.onTokenReceived,
-      this.webViewColor = Colors.transparent})
+      this.webViewColor = Colors.transparent,
+      required this.onError})
       : super(key: key);
 
   final double width, height;
   final Function(String token) onTokenReceived;
+  final Function(String error) onError;
   final Color? webViewColor;
   final String url;
 
@@ -33,10 +35,17 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
           onMessageReceived: (JavaScriptMessage message) {})
       ..addJavaScriptChannel(AppConstants.captchaJsName,
           onMessageReceived: (JavaScriptMessage message) {
-        widget.onTokenReceived(message.message);
+        if (message.message.contains("error:")) {
+          widget.onError(AppConstants.errorMessage);
+        } else {
+          widget.onTokenReceived(message.message);
+        }
       });
 
-    _controller.loadRequest(Uri.parse('packages/flutter_gcaptcha_v3/assets/index.html')).then((value)  => _initializeReadyJs());
+    _controller
+        .loadRequest(
+            Uri.parse('packages/flutter_gcaptcha_v3/assets/index.html'))
+        .then((value) => _initializeReadyJs());
   }
 
   @override

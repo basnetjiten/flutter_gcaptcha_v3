@@ -8,7 +8,8 @@ void main() {
   /// STEP: 1
   /// Initialize your data site key
   /// Should be called at main to setup the site key
-  RecaptchaHandler.instance.setupSiteKey(dataSiteKey: 'YOUR-DATA-SITE-KEY',useCustomAction:true);
+  RecaptchaHandler.instance
+      .setupSiteKey(dataSiteKey: 'YOUR-DATA-SITE-KEY', useCustomAction: true);
   runApp(const MyApp());
 }
 
@@ -46,6 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
           webViewColor: null,
           onTokenReceived: _onTokenReceived,
           url: 'https:yourdomain.com/index.html',
+          onError: (String error) {},
         ),
         ElevatedButton(
           onPressed: _execute,

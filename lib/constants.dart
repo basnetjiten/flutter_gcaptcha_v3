@@ -5,4 +5,5 @@ class AppConstants {
   static String readyCaptcha = 'readyCaptcha';
   static String readyJsName = 'Ready';
   static String captchaJsName = 'Captcha';
+  static String errorMessage = 'Unable to generate Token, Please try again.';
 }
