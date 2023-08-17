@@ -7,17 +7,22 @@
 </head>
 <body>
 <script>
-      function executeCaptcha(siteKey, action){
+      function executeCaptcha(siteKey){
         if(typeof Captcha!=="undefined"){
             grecaptcha.ready(function() {
-            grecaptcha.execute(siteKey, { action }).then(function(token) {
+            grecaptcha.execute(siteKey, {action: 'submit'}).then(function(token) {
             Captcha.postMessage(token);
-            });
+            }).catch(function(error) {
+            // Post the error message back to the WebView
+            Captcha.postMessage("error: " + error.message);
+          });
            });
         }
       }
-      
-      function readyCaptcha(dataSiteKey, action) {
+</script>
+
+<script>
+      function readyCaptcha(dataSiteKey) {
 
         // Create a new script element
         var script = document.createElement('script');
@@ -31,10 +36,11 @@
 
         head.appendChild(script);
 
-        executeCaptcha(dataSiteKey, action);
+        executeCaptcha(dataSiteKey);
       }
 
 </script>
 
 </body>
 </html>
+
