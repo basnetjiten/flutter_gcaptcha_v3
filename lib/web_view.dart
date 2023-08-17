@@ -47,7 +47,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
 
     _controller
         .loadFile('assets/index.html')
-        .then((value) => _initializeReadyJs());
+        .then((value) => Future.delayed(const Duration(seconds: 1)).then((value) => _initializeReadyJs()));
   }
 
   @override
