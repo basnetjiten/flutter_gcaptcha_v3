@@ -43,8 +43,7 @@ class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
       });
 
     _controller
-        .loadRequest(
-            Uri.parse('assets/index.html'))
+        .loadFile('assets/index.html')
         .then((value) => _initializeReadyJs());
   }
 
