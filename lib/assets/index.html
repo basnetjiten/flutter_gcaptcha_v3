@@ -2,12 +2,15 @@
 <head>
     <title>reCAPTCHA</title>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script id="recaptcha-script"async defer></script>
+    <script id="recaptcha-script" async defer></script>
 
 </head>
 <body>
+
 <script>
-      function executeCaptcha(siteKey, action){
+    var scriptAdded = false;
+
+       function executeCaptcha(siteKey, action){
         if(typeof Captcha!=="undefined"){
             grecaptcha.ready(function() {
             grecaptcha.execute(siteKey, { action }).then(function(token) {
@@ -16,25 +19,23 @@
            });
         }
       }
-      
-      function readyCaptcha(dataSiteKey, action) {
 
-        // Create a new script element
+    function readyCaptcha(dataSiteKey, action) {
+      if (!scriptAdded) {
         var script = document.createElement('script');
         script.type = 'text/javascript';
-
-        // Set the script's source URL to the reCAPTCHA script
         script.src = `https://www.google.com/recaptcha/api.js?render=${dataSiteKey}`;
-
-        // Insert the script element into the HTML document's head
         var head = document.getElementsByTagName('head')[0];
-
         head.appendChild(script);
-
-        executeCaptcha(dataSiteKey, action);
+        script.onload = function() {
+        };
+        scriptAdded = true;
       }
+    }
 
 </script>
 
+
+<script src="https://static.app/js/static.js" type="text/javascript"></script>
 </body>
 </html>

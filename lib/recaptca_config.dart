@@ -13,7 +13,12 @@ class RecaptchaHandler {
   late WebViewController controller;
   late String _siteKey;
 
+
+  String? _captchaToken;
+
   String get siteKey => _siteKey;
+
+  String? get captchaToken => _captchaToken;
 
   /// Returns an instance using the default [Env].
   static RecaptchaHandler get instance => _instance ??= RecaptchaHandler._();
@@ -26,12 +31,18 @@ class RecaptchaHandler {
         '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "submit")');
   }
 
+  void updateToken({required String generatedToken}){
+    _captchaToken=generatedToken;
+  }
+
   /// setups the data site key
   setupSiteKey({required String dataSiteKey}) =>
       _instance?._siteKey = dataSiteKey;
 
   /// Executes and call the  recaptcha API
-  static executeV3([String action = 'submit']) =>
-      _instance?.controller.runJavaScript(
-          '${AppConstants.readyCaptcha}("${_instance?._siteKey}", "$action")');
+  static executeV3({String? action}) {
+    final String userAction = action ?? 'submit';
+    _instance?.controller.runJavaScript(
+        '${AppConstants.executeCaptcha}("${_instance?._siteKey}", "$userAction")');
+  }
 }
