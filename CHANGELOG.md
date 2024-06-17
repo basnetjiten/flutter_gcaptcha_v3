@@ -25,3 +25,8 @@
 * Feat: updated RecaptCapthWebView to take hosted url params
 * docs: updated Note to Test Recaptcha using own hostel url
 * code clean up (Tested with live hostel url)
+
+## 2.1.0
+* Fix: generate token only on execute method call
+* Feat: Added getter to use captchaToken
+* Feat: Update index.html and scripts

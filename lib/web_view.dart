@@ -28,6 +28,8 @@ class ReCaptchaWebView extends StatelessWidget {
       ..addJavaScriptChannel(AppConstants.captchaJsName,
           onMessageReceived: (JavaScriptMessage message) {
         onTokenReceived(message.message);
+        RecaptchaHandler.instance.updateToken(generatedToken: message.message);
+
       });
 
     controller.loadRequest(Uri.parse(url)).then((value) =>
