@@ -76,6 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             child: const Text('submit'),
           ),
+          const SizedBox(height: 20,),
           ElevatedButton(
             onPressed: () {
               log('Stored Token ${RecaptchaHandler.instance.captchaToken}');
@@ -92,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
   /// Verify your Token using the server
 
   _onTokenReceived(String token) {
-    print("FINAL TOKEN===> $token");
+    log("CAPTCHA TOKEN===> $token");
 
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
