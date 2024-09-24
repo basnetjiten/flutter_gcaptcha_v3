@@ -11,7 +11,7 @@ void main() {
   //
   //TO VERY TOKEN: USE THE SECRETE: 6LcXCvspAAAAAP-an5GPf2pLueo34ajUTS4r5zej
   RecaptchaHandler.instance
-      .setupSiteKey(dataSiteKey: '6LcXCvspAAAAAN5xfINmiaK1A6JqeBO5MKj-A5mO');
+      .setupSiteKey(dataSiteKey: '6LcvUk0qAAAAAF9eVA3fW3CuHHJNTPlkg9ntIePF');
   runApp(const MyApp());
 }
 
@@ -64,10 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     width: double.maxFinite,
                     height: 200,
                     onTokenReceived: _onTokenReceived,
-                    url: 'https://easy-going-pigeon.static.domains/index.html',
-                    loadCallback: (){
-                      //webview controller and view is loaded then call RecaptchaHandler
-                    }
+                    url: 'https://emerald-eran-52.tiiny.site',
 
                   ),
                 ),

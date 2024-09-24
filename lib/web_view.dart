@@ -3,14 +3,13 @@ import 'package:flutter_gcaptcha_v3/constants.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class ReCaptchaWebView extends StatelessWidget {
+class ReCaptchaWebView extends StatefulWidget {
   const ReCaptchaWebView(
       {Key? key,
       required this.url,
       required this.width,
       required this.height,
       required this.onTokenReceived,
-      required this.loadCallback,
       this.webViewColor = Colors.transparent})
       : super(key: key);
 
@@ -18,39 +17,46 @@ class ReCaptchaWebView extends StatelessWidget {
   final Function(String token) onTokenReceived;
   final Color? webViewColor;
   final String url;
-  static late WebViewController controller;
-  final Function loadCallback;
 
-  setWebviewConfigs() {
-    controller = WebViewController()
-      ..setBackgroundColor(webViewColor ?? Colors.transparent)
+  @override
+  State<ReCaptchaWebView> createState() => _ReCaptchaWebViewState();
+}
+
+class _ReCaptchaWebViewState extends State<ReCaptchaWebView> {
+  late WebViewController _webController;
+
+  @override
+  void initState() {
+    super.initState();
+    _webController = WebViewController();
+    _setWebViewConfigs();
+  }
+
+  _setWebViewConfigs() {
+    _webController
+      ..setBackgroundColor(widget.webViewColor ?? Colors.transparent)
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..addJavaScriptChannel(AppConstants.readyJsName,
           onMessageReceived: (JavaScriptMessage message) {})
       ..addJavaScriptChannel(AppConstants.captchaJsName,
           onMessageReceived: (JavaScriptMessage message) {
-        onTokenReceived(message.message);
+        widget.onTokenReceived(message.message);
         RecaptchaHandler.instance.updateToken(generatedToken: message.message);
-
       });
 
-    controller.loadRequest(Uri.parse(url)).then((value) =>
-        Future.delayed(const Duration(seconds: 3))
-            .then((value){
-              _initializeReadyJs(controller);
-              loadCallback();
+    _webController.loadRequest(Uri.parse(widget.url)).then(
+        (value) => Future.delayed(const Duration(seconds: 3)).then((value) {
+              _initializeReadyJs(_webController);
             }));
   }
 
   @override
   Widget build(BuildContext context) {
-    setWebviewConfigs();
-
     return SizedBox(
-      height: height,
-      width: width,
+      height: widget.height,
+      width: widget.width,
       child: WebViewWidget(
-        controller: controller,
+        controller: _webController,
       ),
     );
   }
