@@ -65,6 +65,10 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 200,
                     onTokenReceived: _onTokenReceived,
                     url: 'https://easy-going-pigeon.static.domains/index.html',
+                    loadCallback: (){
+                      //webview controller and view is loaded then call RecaptchaHandler
+                    }
+
                   ),
                 ),
               ],

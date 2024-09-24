@@ -10,6 +10,7 @@ class ReCaptchaWebView extends StatelessWidget {
       required this.width,
       required this.height,
       required this.onTokenReceived,
+      required this.loadCallback,
       this.webViewColor = Colors.transparent})
       : super(key: key);
 
@@ -18,6 +19,7 @@ class ReCaptchaWebView extends StatelessWidget {
   final Color? webViewColor;
   final String url;
   static late WebViewController controller;
+  final Function loadCallback;
 
   setWebviewConfigs() {
     controller = WebViewController()
@@ -34,7 +36,10 @@ class ReCaptchaWebView extends StatelessWidget {
 
     controller.loadRequest(Uri.parse(url)).then((value) =>
         Future.delayed(const Duration(seconds: 3))
-            .then((value) => _initializeReadyJs(controller)));
+            .then((value){
+              _initializeReadyJs(controller);
+              loadCallback();
+            }));
   }
 
   @override
