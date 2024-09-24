@@ -30,3 +30,8 @@
 * Fix: generate token only on execute method call
 * Feat: Added getter to use captchaToken
 * Feat: Update index.html and scripts
+
+## 2.1.1
+* Fix: late initialization error
+* Feat: update example with live hotel url
+
