@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:example/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gcaptcha_v3/recaptca_config.dart';
 import 'package:flutter_gcaptcha_v3/web_view.dart';
@@ -10,8 +11,7 @@ void main() {
   // Should be called at main to setup the site key
   //
   //TO VERY TOKEN: USE THE SECRETE: 6LcXCvspAAAAAP-an5GPf2pLueo34ajUTS4r5zej
-  RecaptchaHandler.instance
-      .setupSiteKey(dataSiteKey: '6LcvUk0qAAAAAF9eVA3fW3CuHHJNTPlkg9ntIePF');
+  RecaptchaHandler.instance.setupSiteKey(dataSiteKey: AppConstants.dataSiteKey);
   runApp(const MyApp());
 }
 
@@ -65,7 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     height: 200,
                     onTokenReceived: _onTokenReceived,
                     url: 'https://emerald-eran-52.tiiny.site',
-
                   ),
                 ),
               ],
@@ -77,7 +76,9 @@ class _MyHomePageState extends State<MyHomePage> {
             },
             child: const Text('submit'),
           ),
-          const SizedBox(height: 20,),
+          const SizedBox(
+            height: 20,
+          ),
           ElevatedButton(
             onPressed: () {
               log('Stored Token ${RecaptchaHandler.instance.captchaToken}');
